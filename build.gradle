@@ -35,12 +35,12 @@ allprojects {
 
     repositories {
 
-	mavenCentral()
+        mavenCentral()
 
-	maven {
+        maven {
 
-		url "file://" + (System.getenv("SHAREWORK_WS")) + "/devel/share/maven"
-	}
+            url "file://" + project.getProjectDir().getAbsolutePath() + "/../../devel/share/maven"
+        }
     }
 }
 
