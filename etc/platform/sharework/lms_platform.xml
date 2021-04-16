@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ros>
+
+	<command name="*" component="Robot">
+	
+		<dispatch-topic 
+			name="/sharework/actionlib_bridge/lms/robot"
+			msg="sharework_task_planner_interfaces/TaskExecutionRequest" 
+			publisher="it.cnr.istc.pst.sharework.task_planner.platform.rosbridge.lms.TaskRequestPublisher" />
+			
+		<feedback-topic 
+			name="/sharework/actionlib_bridge/lms/robot/feedback"
+			msg="sharework_task_planner_interfaces/TaskExecutionFeedback" 
+			delegate="it.cnr.istc.pst.sharework.task_planner.platform.rosbridge.lms.TaskFeedbackListener" />
+			
+	</command>
+	
+	<command name="*" component="Human">
+	
+		<dispatch-topic 
+			name="/sharework/actionlib_bridge/lms/human"
+			msg="sharework_task_planner_interfaces/TaskExecutionRequest" 
+			publisher="it.cnr.istc.pst.sharework.task_planner.platform.rosbridge.lms.TaskRequestPublisher" />
+			
+		<feedback-topic 
+			name="/sharework/actionlib_bridge/lms/human/feedback"
+			msg="sharework_task_planner_interfaces/TaskExecutionFeedback" 
+			delegate="it.cnr.istc.pst.sharework.task_planner.platform.rosbridge.lms.TaskFeedbackListener" />
+			
+	</command>
+	
+	
+</ros>
