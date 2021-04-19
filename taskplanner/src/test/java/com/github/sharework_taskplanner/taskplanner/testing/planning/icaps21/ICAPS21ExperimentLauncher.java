@@ -25,11 +25,11 @@ public class ICAPS21ExperimentLauncher
 	private static int HORIZON = 7000;
 
 	private static int[] ROWS = new int[] {
-			2, 3, 4, 5, 6, 7, 8, 9, 10
+			2, //3, 4, 5, 6, 7, 8, 9, 10
 	};
 	
 	private static int[] COLUMNS = new int[] {
-			2, 3, 4, 5, 6, 7, 8, 9, 10
+			2, //3, 4, 5, 6, 7, 8, 9, 10
 	};
 	
 	private static double[][] BWO = new double [][] {
@@ -41,11 +41,11 @@ public class ICAPS21ExperimentLauncher
 	};
 	
 	private static Class<?>[] PLANNERS = new Class<?>[] {
-//		MHSPlanner.class,
+		MHSPlanner.class,
 //		GHSPlanner.class,
 //		AHSPlanner.class,
-		MBSPlanner.class,		
-		DBSPlanner.class
+//		MBSPlanner.class,
+//		DBSPlanner.class
 		
 	};
 	
@@ -147,7 +147,7 @@ public class ICAPS21ExperimentLauncher
 									// set a planning instance of the plan database
 									Planner planner = PlannerBuilder.createAndSet(
 											(Class<? extends Planner>) pClass, pdb);
-			
+
 									// start planning
 									SolutionPlan plan = planner.plan();
 
@@ -172,9 +172,7 @@ public class ICAPS21ExperimentLauncher
 											+ "\"makespan-human\": [" + hmk[0] + ", " + hmk[1] + "], "
 											+ "\"risk\": " + risk.getPlanRisk() + ", "
 											+ "}");
-									
-									
-									
+
 									// update parameters
 									planningTime += plan.getSolvingTime(); 
 									planCost += solution.getPlanCost();

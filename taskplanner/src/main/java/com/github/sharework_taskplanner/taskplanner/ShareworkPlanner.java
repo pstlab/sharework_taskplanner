@@ -1,7 +1,6 @@
 package com.github.sharework_taskplanner.taskplanner;
 
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
-import com.github.sharework_taskplanner.taskplanner.heuristics.search.MinDeltaMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
@@ -18,12 +17,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 @FlawSelectionHeuristicsConfiguration(
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
-@SearchStrategyConfiguration(
-//		strategy = MultiobjectiveHeuristicLearningSearchStrategy.class
-//		strategy = MHS.class
-		strategy = MinDeltaMHS.class
-//		strategy = MinMaxMHS.class
-)
+@SearchStrategyConfiguration
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.OFF
 )

@@ -86,7 +86,7 @@ public class MosaicModelGenerator
 	 * 
 	 */
 	public MosaicModelGenerator() {
-		this("/hrc_mosaic_gen.ddl", "/hrc_mosaic_gen.pdl");
+		this("hrc_mosaic_gen.ddl", "hrc_mosaic_gen.pdl");
 	}
 	
 	/**
