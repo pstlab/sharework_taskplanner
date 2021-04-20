@@ -165,6 +165,8 @@ The frist call load the specified file properties to intialize the acting node w
 Once the acting node is correctly initialized the underlying goal-oriented process starts listening messages on the topic specified into the deployment file (see the file ```etc/platform/sharework/platform_cembre.xml``` as an example for the scenario CEMBRE). The second call thus publishes a task planning request on the input topic ```/sharework/taskplanner/goal``` to trigger the deliberative process and concretely synthesize and execute a collaborative plan.
 
 
+_To correctly run the above example please check the file ```agent_cembre.properties``` and set vald paths for the attributes ```model``` and ```platform_config_file```._
+
 ## References 
 
 [1] Cialdea Mayer, M., Orlandini, A., Umbrico, A. "Planning and execution with flexible timelines: a formal account". Acta Informatica. Volume 53. 2016. Pages 649–680.
