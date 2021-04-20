@@ -10,14 +10,12 @@ import org.ros.node.ConnectedNode;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 
 /**
- * 
- * @author alessandroumbrico
  *
  */
-public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<sharework_taskplanner_msgs.MotionTaskExecutionRequestArray>
+public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_planner_interface_msgs.MotionTaskExecutionRequestArray>
 {
 	/**
 	 *
@@ -33,7 +31,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<sharewor
 	 */
 	@Override
 	public String getMessageType() {
-		return sharework_taskplanner_msgs.MotionTaskExecutionRequestArray._TYPE;
+		return task_planner_interface_msgs.MotionTaskExecutionRequestArray._TYPE;
 	}
 
 	/**
@@ -44,53 +42,79 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<sharewor
 	 * @throws MessageMarshalingException
 	 */
 	@Override
-	public sharework_taskplanner_msgs.MotionTaskExecutionRequestArray marshal(ConnectedNode node, PlatformCommand cmd)
+	public task_planner_interface_msgs.MotionTaskExecutionRequestArray marshal(ConnectedNode node, PlatformCommand cmd)
 			throws MessageMarshalingException
 	{
 		// create message
-		sharework_taskplanner_msgs.MotionTaskExecutionRequestArray request = node.getTopicMessageFactory()
-				.newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequestArray._TYPE);
+		task_planner_interface_msgs.MotionTaskExecutionRequestArray request = node.getTopicMessageFactory()
+				.newFromType(task_planner_interface_msgs.MotionTaskExecutionRequestArray._TYPE);
 		// set data
 		request.setCmdId(cmd.getId());
 		// prepare the list of tasks
-		List<sharework_taskplanner_msgs.MotionTaskExecutionRequest> tasks = new ArrayList<>();
+		List<task_planner_interface_msgs.MotionTaskExecutionRequest> tasks = new ArrayList<>();
+
 
 		// check parameters
 		if (cmd.getParamValues().length == 3)
 		{
 			// create data message
-			sharework_taskplanner_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
+			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
+
+			// set task id
+			String taskId = cmd.getName().trim().toLowerCase() + cmd.getParamValues()[1].trim().replace("_", "-");
+			// check type of task
+			if (taskId.contains("place")) {
+				taskId = taskId.replace("box-a", "box-A")
+						.replace("box-b", "box-B");
+			}
 
 			// set message data
-			task.setTaskId((cmd.getName().toLowerCase() + cmd.getParamValues()[1]).trim());
+			task.setTaskId(taskId);
 			task.setTaskName(cmd.getName().toLowerCase());
-			task.setCfgStart(cmd.getParamValues()[0]);
-			task.setCfgGoal(cmd.getParamValues()[1]);
-			task.setRiskLevel(Float.parseFloat(cmd.getParamValues()[2]));
+			task.setCfgStart(cmd.getParamValues()[0].trim());
+			task.setCfgGoal(cmd.getParamValues()[1].trim());
+			task.setRiskLevel(Float.parseFloat(cmd.getParamValues()[2].trim()));
 			task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
 			task.setHumanTasks(new ArrayList<String>());
 
 			// add task
 			tasks.add(task);
+			// print message
+			this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
+					"- cmd= " + cmd + "\n" +
+					"- task-ID= " + task.getTaskId() + "\n");
+
 		}
 		else 
 		{
 			// create data message
-			sharework_taskplanner_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
+			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
+
+			// set task id
+			String taskId = cmd.getName().trim().toLowerCase().replace("_", "-");
+			// check type of task
+			if (taskId.contains("place")) {
+				taskId = taskId.replace("box-a", "box-A")
+						.replace("box-b", "box-B");
+			}
 
 			// set message data
-			task.setTaskId((cmd.getName().toLowerCase() + "-" + cmd.getParamValues()[0]).trim());
+			task.setTaskId(taskId);
 			task.setTaskName(cmd.getName().toLowerCase());
 			task.setCfgStart("not-set");
-			task.setCfgGoal(cmd.getParamValues()[0].trim());
+			task.setCfgGoal("not-set");
 			task.setRiskLevel(Float.parseFloat("0.0"));
 			task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
 			task.setHumanTasks(new ArrayList<String>());
 
 			// add task
 			tasks.add(task);
+			// print message
+			this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
+					"- cmd= " + cmd + "\n" +
+					"- task-ID= " + task.getTaskId() + "\n");
 		}
 		
 		// check the next 2 nodes on the component (if any)
@@ -111,27 +135,43 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<sharewor
 				String[] params = PlatformProxy.extractCommandParameters(next);
 
 				// create data message
-				sharework_taskplanner_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-						newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
+				task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+						newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
 				// check parameters
-				if (params.length != 3) {
+				if (params.length == 3) {
+
+					// set task id
+					String taskId = cmd.getName().trim().toLowerCase() + cmd.getParamValues()[1].trim().replace("_", "-");
+					// check type of task
+					if (taskId.contains("place")) {
+						taskId = taskId.replace("box-a", "box-A")
+								.replace("box-b", "box-B");
+					}
 
 					// set message data
-					task.setTaskId((name.toLowerCase() + "-" + params[0]).trim());
-					task.setTaskName(name.toLowerCase());
-					task.setCfgStart("not-set");
-					task.setCfgGoal(params[0].trim());
-					task.setRiskLevel(Float.parseFloat("0.0"));
+					task.setTaskId(taskId);
+					task.setTaskName(cmd.getName().toLowerCase());
+					task.setCfgStart(params[0].trim());
+					task.setCfgGoal(params[1].trim());
+					task.setRiskLevel(Float.parseFloat(params[2].trim()));
 
 				} else {
 
+					// set task id
+					String taskId = cmd.getName().trim().toLowerCase().replace("_", "-");
+					// check type of task
+					if (taskId.contains("place")) {
+						taskId = taskId.replace("box-a", "box-A")
+								.replace("box-b", "box-B");
+					}
+
 					// set message data
-					task.setTaskId((name.toLowerCase() + params[1]).trim());
-					task.setTaskName(name.toLowerCase());
-					task.setCfgStart(params[0]);
-					task.setCfgGoal(params[1]);
-					task.setRiskLevel(Float.parseFloat(params[2]));
+					task.setTaskId(taskId);
+					task.setTaskName(cmd.getName().toLowerCase().replace("_", "-"));
+					task.setCfgStart("not-set");
+					task.setCfgGoal("not-set");
+					task.setRiskLevel(Float.parseFloat("0.0"));
 				}
 
 				// add task
@@ -142,32 +182,15 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<sharewor
 		}
 
 		// check tasks
-		if (tasks.size() == 1) {
+		while (tasks.size() < 3) {
 
-			// set empty object
-			sharework_taskplanner_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
+			// add empty task to complete description
+			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 			// add task
 			tasks.add(task);
-
-			// set empty object
-			task = node.getTopicMessageFactory().
-					newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
-			// add task
-			tasks.add(task);
-
-		} else if (tasks.size() == 2) {
-
-			// set empty object
-			sharework_taskplanner_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE);
-			// add task
-			tasks.add(task);
-
-		} else {
-			// nothing to do
 		}
-		
+
 		// set request tasks
 		request.setTasks(tasks);
 		// get the request

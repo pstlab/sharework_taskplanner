@@ -16,64 +16,64 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 	}
 
-	COMP_TYPE SingletonStateVariable WorkerVariableType(place_box_B(), place_box_A(), pick_squadra_piccola(), pick_squadra_grande(),  Idle()) {
+	COMP_TYPE SingletonStateVariable WorkerVariableType(_place_box_B(), _place_box_A(), _pick_squadra_piccola(), _pick_squadra_grande(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			place_box_B();
-			place_box_A();
-			pick_squadra_piccola();
-			pick_squadra_grande();
+			_place_box_B();
+			_place_box_A();
+			_pick_squadra_piccola();
+			_pick_squadra_grande();
 		}
 
-		VALUE place_box_B() [1, +INF]
+		VALUE _place_box_B() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE place_box_A() [1, +INF]
+		VALUE _place_box_A() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE pick_squadra_piccola() [1, +INF]
+		VALUE _pick_squadra_piccola() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE pick_squadra_grande() [1, +INF]
+		VALUE _pick_squadra_grande() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
 	}
 
-	COMP_TYPE SingletonStateVariable CobotVariableType(place_box_B(), place_box_A(), pick_squadra_piccola(), pick_squadra_grande(),  Idle()) {
+	COMP_TYPE SingletonStateVariable CobotVariableType(_place_box_B(), _place_box_A(), _pick_squadra_piccola(), _pick_squadra_grande(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			place_box_B();
-			place_box_A();
-			pick_squadra_piccola();
-			pick_squadra_grande();
+			_place_box_B();
+			_place_box_A();
+			_pick_squadra_piccola();
+			_pick_squadra_grande();
 		}
 
-		VALUE place_box_B() [1, +INF]
+		VALUE _place_box_B() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE place_box_A() [1, +INF]
+		VALUE _place_box_A() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE pick_squadra_piccola() [1, +INF]
+		VALUE _pick_squadra_piccola() [1, +INF]
 		MEETS {
 			Idle();
 		}
 
-		VALUE pick_squadra_grande() [1, +INF]
+		VALUE _pick_squadra_grande() [1, +INF]
 		MEETS {
 			Idle();
 		}
@@ -260,97 +260,97 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doPlaceBoxBRobot() {
 
-			d0 Cobot.tasks.place_box_B();
+			d0 Cobot.tasks._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBRobot() {
 
-			d0 Cobot.tasks.place_box_B();
+			d0 Cobot.tasks._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBRobot() {
 
-			d0 Cobot.tasks.place_box_B();
+			d0 Cobot.tasks._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBRobot() {
 
-			d0 Cobot.tasks.place_box_B();
+			d0 Cobot.tasks._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBHuman() {
 
-			d0 Worker.operations.place_box_B();
+			d0 Worker.operations._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBHuman() {
 
-			d0 Worker.operations.place_box_B();
+			d0 Worker.operations._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBHuman() {
 
-			d0 Worker.operations.place_box_B();
+			d0 Worker.operations._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxBHuman() {
 
-			d0 Worker.operations.place_box_B();
+			d0 Worker.operations._place_box_B();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxARobot() {
 
-			d0 Cobot.tasks.place_box_A();
+			d0 Cobot.tasks._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxARobot() {
 
-			d0 Cobot.tasks.place_box_A();
+			d0 Cobot.tasks._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxARobot() {
 
-			d0 Cobot.tasks.place_box_A();
+			d0 Cobot.tasks._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxARobot() {
 
-			d0 Cobot.tasks.place_box_A();
+			d0 Cobot.tasks._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxAHuman() {
 
-			d0 Worker.operations.place_box_A();
+			d0 Worker.operations._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxAHuman() {
 
-			d0 Worker.operations.place_box_A();
+			d0 Worker.operations._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxAHuman() {
 
-			d0 Worker.operations.place_box_A();
+			d0 Worker.operations._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPlaceBoxAHuman() {
 
-			d0 Worker.operations.place_box_A();
+			d0 Worker.operations._place_box_A();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -364,6 +364,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPickSquadraGrandeRobot();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d1 BEFORE [0, +INF] d0;
 		}
 
 		 VALUE doPickPlaceSquadraGrandeRobot() {
@@ -372,6 +374,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPickSquadraGrandeRobot();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d1 BEFORE [0, +INF] d0;
 		}
 
 		 VALUE doPickPlaceSquadraPiccolaHuman() {
@@ -380,6 +384,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPickSquadraPiccolaHuman();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d1 BEFORE [0, +INF] d0;
 		}
 
 		 VALUE doPickPlaceSquadraPiccolaHuman() {
@@ -388,6 +394,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPickSquadraPiccolaHuman();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d1 BEFORE [0, +INF] d0;
 		}
 
 		 VALUE doPickPlaceSquadraGrandeHuman() {
@@ -396,6 +404,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPlaceSquadraGrandeHuman();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d0 BEFORE [0, +INF] d1;
 		}
 
 		 VALUE doPickPlaceSquadraGrandeHuman() {
@@ -404,6 +414,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPlaceSquadraGrandeHuman();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d0 BEFORE [0, +INF] d1;
 		}
 
 		 VALUE doPickPlaceSquadraPiccolaRobot() {
@@ -412,6 +424,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPlaceSquadraPiccolaRobot();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d0 BEFORE [0, +INF] d1;
 		}
 
 		 VALUE doPickPlaceSquadraPiccolaRobot() {
@@ -420,6 +434,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionL3.tasks_l3.doPlaceSquadraPiccolaRobot();
 			CONTAINS [0, +INF] [0, +INF] d1;
+
+			d0 BEFORE [0, +INF] d1;
 		}
 
 	}
@@ -468,13 +484,13 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doPickSquadraPiccolaRobot() {
 
-			d0 Cobot.tasks.pick_squadra_piccola();
+			d0 Cobot.tasks._pick_squadra_piccola();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPickSquadraPiccolaRobot() {
 
-			d0 Cobot.tasks.pick_squadra_piccola();
+			d0 Cobot.tasks._pick_squadra_piccola();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -504,25 +520,25 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doPickSquadraGrandeRobot() {
 
-			d0 Cobot.tasks.pick_squadra_grande();
+			d0 Cobot.tasks._pick_squadra_grande();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPickSquadraGrandeRobot() {
 
-			d0 Cobot.tasks.pick_squadra_grande();
+			d0 Cobot.tasks._pick_squadra_grande();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPickSquadraPiccolaHuman() {
 
-			d0 Worker.operations.pick_squadra_piccola();
+			d0 Worker.operations._pick_squadra_piccola();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPickSquadraPiccolaHuman() {
 
-			d0 Worker.operations.pick_squadra_piccola();
+			d0 Worker.operations._pick_squadra_piccola();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -552,13 +568,13 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doPickSquadraGrandeHuman() {
 
-			d0 Worker.operations.pick_squadra_grande();
+			d0 Worker.operations._pick_squadra_grande();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE doPickSquadraGrandeHuman() {
 
-			d0 Worker.operations.pick_squadra_grande();
+			d0 Worker.operations._pick_squadra_grande();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 

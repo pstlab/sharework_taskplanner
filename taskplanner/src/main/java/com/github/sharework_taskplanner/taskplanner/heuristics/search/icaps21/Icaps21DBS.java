@@ -20,14 +20,14 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.Po
  * @author alessandroumbrico
  *
  */
-public class DBS extends SearchStrategy 
+public class Icaps21DBS extends SearchStrategy
 {
 	private MongoClient heuristicDataset;
 	
 	/**
 	 * 
 	 */
-	protected DBS() {
+	protected Icaps21DBS() {
 		super("DepthBlindSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();

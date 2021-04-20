@@ -1,4 +1,4 @@
-package com.github.sharework_taskplanner.taskplanner.heuristics.search;
+package com.github.sharework_taskplanner.taskplanner.heuristics.search.icaps21;
 
 import java.util.Map;
 
@@ -20,16 +20,15 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.Po
  * @author alessandroumbrico
  *
  */
-public class MHS extends SearchStrategy 
+public class Icaps21MBS extends SearchStrategy
 {
-	private static final double SYN_MAX = 50.0;
 	private MongoClient heuristicDataset;
-
+	
 	/**
 	 * 
 	 */
-	protected MHS() {
-		super("MultiobjectiveHeuristicSearchStrategy");
+	protected Icaps21MBS() {
+		super("MultiobjectiveBlindSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();
 	}
@@ -41,11 +40,9 @@ public class MHS extends SearchStrategy
 	protected void init() {
 		super.init();
 		
-		// set static field of plan synergy
-		PlanSynergy.SYN_MAX = SYN_MAX;
-		PlanSynergy.pgraph = this.pgraph;
-		PlanSynergy.robot = this.pdb.getComponentByName("Robot");
-		PlanSynergy.human = this.pdb.getComponentByName("Human");
+		PlanRisk.pgraph = this.pgraph;
+		PlanRisk.robot = this.pdb.getComponentByName("Robot");
+		PlanRisk.human = this.pdb.getComponentByName("Human");
 	}
 	
 	/**
@@ -54,7 +51,7 @@ public class MHS extends SearchStrategy
 	 */
 	protected void registerSearchChoice(SearchSpaceNode node) 
 	{
-		// check DB collection
+		// check db collection
 		if (this.collection != null) 
 		{
 			
@@ -78,11 +75,11 @@ public class MHS extends SearchStrategy
 			
 			
 			// get synergy information
-			PlanSynergy syn = (PlanSynergy) node.getDomainSpecificMetric();
+			PlanRisk syn = (PlanRisk) node.getDomainSpecificMetric();
 			
 			// synergy 
-			doc.append("node-plan-synergy", syn.getPlanSynergy());
-			doc.append("node-heuristic-plan-synergy", syn.getHeuristicSynergy());
+			doc.append("node-plan-synergy", syn.getPlanRisk());
+			doc.append("node-heuristic-plan-synergy", syn.getHeuristicRisk());
 			
 			
 			// get robot component 
@@ -119,17 +116,7 @@ public class MHS extends SearchStrategy
 		// extract a node from the fringe
 		SearchSpaceNode node = super.dequeue();
 		// get risk
-		PlanSynergy risk = (PlanSynergy) node.getDomainSpecificMetric();
-		
-		// check node information
-		System.out.println("Current plan { "
-				+ "\"plan-makespan\": [" + node.getPlanMakespan()[0]  + ", " + node.getPlanMakespan()[1] + "], "
-				+ "\"heuristic-makespan\" [" + node.getPlanHeuristicMakespan()[0] + ", " + node.getPlanHeuristicMakespan()[1] + "], "
-				+ "\"plan-cost\": " + node.getPlanCost() + ", "
-				+ "\"heuristic-cost\": [" + node.getPlanHeuristicCost()[0] + ", " + node.getPlanHeuristicCost()[1] + "], "
-				+ "\"plan-synergy\": " + risk.getPlanSynergy() + ", "
-				+ "\"heuristic-synergy\": " + risk.getHeuristicSynergy() + ", "
-				+ "}");
+		PlanRisk risk = (PlanRisk) node.getDomainSpecificMetric();
 		
 		// set debug information
 		debug("Current plan { "
@@ -137,8 +124,8 @@ public class MHS extends SearchStrategy
 				+ "\"heuristic-makespan\" [" + node.getPlanHeuristicMakespan()[0] + ", " + node.getPlanHeuristicMakespan()[1] + "], "
 				+ "\"plan-cost\": " + node.getPlanCost() + ", "
 				+ "\"heuristic-cost\": [" + node.getPlanHeuristicCost()[0] + ", " + node.getPlanHeuristicCost()[1] + "], "
-				+ "\"plan-synergy\": " + risk.getPlanSynergy() + ", "
-				+ "\"heuristic-synergy\": " + risk.getHeuristicSynergy() + ", "
+				+ "\"plan-synergy\": " + risk.getPlanRisk() + ", "
+				+ "\"heuristic-synergy\": " + risk.getHeuristicRisk() + ", "
 				+ "}");
 		// get node
 		return node;
@@ -161,7 +148,7 @@ public class MHS extends SearchStrategy
 		node.setHeuristicMakespan(hm);
 		
 		// create plan synergy
-		PlanSynergy pSyn = new PlanSynergy(node, this.getDataset());
+		PlanRisk pSyn = new PlanRisk(node, this.getDataset());
 		// set additional metric
 		node.setDomainSpecificMetric(pSyn);
 
@@ -187,31 +174,29 @@ public class MHS extends SearchStrategy
 	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) 
 	{
 		// get costs as the sum of actual cost and heuristic estimation (a* like)
-		double c1 = o1.getPlanCost() + o1.getPlanHeuristicCost()[0];
-		double c2 = o2.getPlanCost() + o2.getPlanHeuristicCost()[0];
+		double c1 = o1.getPlanCost();
+		double c2 = o2.getPlanCost();
 		
 		// get makespan as the sum of actual makespan and heuristic estimation
-		double m1 = o1.getPlanMakespan()[0] + o1.getPlanHeuristicMakespan()[0];
-		double m2 = o2.getPlanMakespan()[0] + o2.getPlanHeuristicMakespan()[0];
+		double m1 = o1.getPlanMakespan()[0];
+		double m2 = o2.getPlanMakespan()[0];
 		
 		// get risk information
-		PlanSynergy pr1 = (PlanSynergy) o1.getDomainSpecificMetric();
-		PlanSynergy pr2 = (PlanSynergy) o2.getDomainSpecificMetric();
+		PlanRisk pr1 = (PlanRisk) o1.getDomainSpecificMetric();
+		PlanRisk pr2 = (PlanRisk) o2.getDomainSpecificMetric();
 		
-		// get risk as the sum of actual risk and heuristic estimation
-		double r1 = pr1.getPlanSynergy() + pr1.getHeuristicSynergy();
-		double r2 = pr2.getPlanSynergy() + pr2.getHeuristicSynergy();
+		// get risk as the sum of actual risk and heuristic esitimation
+		double r1 = pr1.getPlanRisk();
+		double r2 = pr2.getPlanRisk();
 		
-		// check dominance condition between partial plans
-		return m1 < m2 && r1 < r2 && c1 < c2 ? -1 : m1 > m2 && r1 > r2 && c1 > c2 ? 1 :
+		// chekc dominancy between partial plans
+		return m1 < m2 && r1 < r2 ? -1 : m1 > m2 && r1 > r2 ? 1 :
 			// check heuristic distance to solutions
-			o1.getPlanHeuristicCost()[0] < o2.getPlanHeuristicCost()[0] ? -1 : o1.getPlanHeuristicCost()[0] > o2.getPlanHeuristicCost()[0] ? 1 :
-				// check heuristics makespan
+			o1.getDepth() < o2.getDepth() ? -1 : o1.getDepth() > o2.getDepth() ? 1 :
+				// check heursitics makespan
 				m1 < m2 ? -1 : m1 > m2 ? 1 :
-					// check synergy
-					r1 < r2 ? -1 : r1 > r2 ? 1 :  
-						// check heuristic distance to solutions
-						c1 < c2 ? -1 : c1 > c2 ? 1 : 0;
+					// check heuristic distance to solutions
+					c1 < c2 ? -1 : c1 > c2 ? 1 : 0;
 				
 	}
 	
@@ -222,7 +207,7 @@ public class MHS extends SearchStrategy
 	private MongoCollection<Document> getDataset() 
 	{
 		// get data-base
-		MongoDatabase db = heuristicDataset.getDatabase("sharework");
+		MongoDatabase db = this.heuristicDataset.getDatabase("roxanne_icaps21");
 		// select data-set
 		MongoCollection<Document> collection = db.getCollection("hrc_task_dynamic_risks");
 		// return collection

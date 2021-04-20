@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  *
  */
-public class TaskPlanningRequestListener extends RosJavaGoalListener<sharework_taskplanner_msgs.TaskPlanningRequest>
+public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planner_interface_msgs.TaskPlanningRequest>
 {
     private static final AtomicLong taskCounter = new AtomicLong(0);
 
@@ -28,7 +28,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<sharework_t
      */
    // @Override
     public String getMessageType() {
-        return sharework_taskplanner_msgs.TaskPlanningRequest._TYPE;
+        return task_planner_interface_msgs.TaskPlanningRequest._TYPE;
     }
 
     /**
@@ -38,7 +38,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<sharework_t
      * @throws MessageUnmarshalingException
      */
     @Override
-    public AgentTaskDescription unmarshal(sharework_taskplanner_msgs.TaskPlanningRequest msg)
+    public AgentTaskDescription unmarshal(task_planner_interface_msgs.TaskPlanningRequest msg)
             throws MessageUnmarshalingException {
 
         // request goal component

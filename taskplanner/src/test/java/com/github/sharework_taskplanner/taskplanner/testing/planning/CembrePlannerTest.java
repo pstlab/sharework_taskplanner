@@ -28,9 +28,9 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.OFF
 )
-public class CembrePlanner extends Planner
+public class CembrePlannerTest extends Planner
 {
-	protected CembrePlanner() {
+	protected CembrePlannerTest() {
 		super();
 	}
 	
@@ -56,7 +56,7 @@ public class CembrePlanner extends Planner
 			
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
-					CembrePlanner.class, pdb);
+					CembrePlannerTest.class, pdb);
 
 			// start planning
 			SolutionPlan plan = planner.plan();

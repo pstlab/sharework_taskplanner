@@ -2,7 +2,7 @@ package com.github.sharework_taskplanner.taskplanner.testing.planning.mosaic;
 
 import com.github.sharework_taskplanner.taskplanner.dom.mosaic.MosaicModelGenerator;
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
-import com.github.sharework_taskplanner.taskplanner.heuristics.search.MHS;
+import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
@@ -29,7 +29,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
 @SearchStrategyConfiguration(
-		strategy = MHS.class
+		strategy = ParetoMHS.class
 )
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.OFF

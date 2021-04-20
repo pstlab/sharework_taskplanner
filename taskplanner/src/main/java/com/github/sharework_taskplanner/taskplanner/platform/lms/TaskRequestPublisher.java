@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  *
  */
-public class TaskRequestPublisher extends RosJavaCommandPublisher<sharework_taskplanner_msgs.TaskExecutionRequest>
+public class TaskRequestPublisher extends RosJavaCommandPublisher<task_planner_interface_msgs.TaskExecutionRequest>
 {
 	private StaticTaskDescriptionKnowledge knowledge;		// static task knowledge
 
@@ -135,7 +135,7 @@ public class TaskRequestPublisher extends RosJavaCommandPublisher<sharework_task
 	 */
 	@Override
 	public String getMessageType() {
-		return sharework_taskplanner_msgs.TaskExecutionRequest._TYPE;
+		return task_planner_interface_msgs.TaskExecutionRequest._TYPE;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class TaskRequestPublisher extends RosJavaCommandPublisher<sharework_task
 	 * @throws MessageMarshalingException
 	 */
 	@Override
-	public sharework_taskplanner_msgs.TaskExecutionRequest marshal(ConnectedNode connectedNode, PlatformCommand cmd)
+	public task_planner_interface_msgs.TaskExecutionRequest marshal(ConnectedNode connectedNode, PlatformCommand cmd)
 			throws MessageMarshalingException {
 
 		// set task request parameters
@@ -168,8 +168,8 @@ public class TaskRequestPublisher extends RosJavaCommandPublisher<sharework_task
 		params[6] = "Action ID " + cmd.getId();
 
 		// create task execution request
-		sharework_taskplanner_msgs.TaskExecutionRequest request = connectedNode.getTopicMessageFactory()
-				.newFromType(sharework_taskplanner_msgs.TaskExecutionRequest._TYPE);
+		task_planner_interface_msgs.TaskExecutionRequest request = connectedNode.getTopicMessageFactory()
+				.newFromType(task_planner_interface_msgs.TaskExecutionRequest._TYPE);
 
 		// set data
 		request.setCmdId(cmd.getId());

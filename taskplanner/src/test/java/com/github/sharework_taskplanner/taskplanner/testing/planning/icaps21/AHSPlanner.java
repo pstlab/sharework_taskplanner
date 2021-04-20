@@ -2,7 +2,7 @@ package com.github.sharework_taskplanner.taskplanner.testing.planning.icaps21;
 
 import com.github.sharework_taskplanner.taskplanner.dom.mosaic.MosaicModelGenerator;
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
-import com.github.sharework_taskplanner.taskplanner.heuristics.search.icaps21.AHS;
+import com.github.sharework_taskplanner.taskplanner.heuristics.search.icaps21.Icaps21AHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
@@ -28,7 +28,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
 @SearchStrategyConfiguration(
-		strategy = AHS.class
+		strategy = Icaps21AHS.class
 )
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.OFF

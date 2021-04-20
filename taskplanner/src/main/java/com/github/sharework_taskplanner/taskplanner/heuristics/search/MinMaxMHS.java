@@ -2,14 +2,21 @@ package com.github.sharework_taskplanner.taskplanner.heuristics.search;
 
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.SearchSpaceNode;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.DomainComponent;
+import org.chocosolver.solver.constraints.nary.automata.FA.utils.Bounds;
 
 /**
- * 
- * @author alessandroumbrico
  *
  */
-public class MinMaxMHS extends MHS 
+public class MinMaxMHS extends ShareworkSearchStrategy
 {
+	/**
+	 *
+	 */
+	protected MinMaxMHS() {
+		super("MinMaxMHS");
+	}
+
+
 	/**
 	 * 
 	 */

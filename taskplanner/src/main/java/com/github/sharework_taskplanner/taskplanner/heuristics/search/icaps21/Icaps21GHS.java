@@ -20,14 +20,14 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.Po
  * @author alessandroumbrico
  *
  */
-public class GHS extends SearchStrategy 
+public class Icaps21GHS extends SearchStrategy
 {
 	private MongoClient heuristicDataset;
 	
 	/**
 	 * 
 	 */
-	protected GHS() {
+	protected Icaps21GHS() {
 		super("GreedyHeursiticSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();

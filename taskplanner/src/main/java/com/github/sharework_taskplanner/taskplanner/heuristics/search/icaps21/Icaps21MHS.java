@@ -21,7 +21,7 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.Po
  * @author alessandroumbrico
  *
  */
-public class MHS extends SearchStrategy 
+public class Icaps21MHS extends SearchStrategy
 {
 	private static final double SYN_MAX = 50.0;
 	private MongoClient heuristicDataset;
@@ -29,7 +29,7 @@ public class MHS extends SearchStrategy
 	/**
 	 * 
 	 */
-	protected MHS() {
+	protected Icaps21MHS() {
 		super("MultiobjectiveHeuristicSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();

@@ -15,20 +15,19 @@ import it.cnr.istc.pst.platinum.ai.deliberative.strategy.ex.EmptyFringeException
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.DomainComponent;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.PostConstruct;
 
+
 /**
- * 
- * @author alessandroumbrico
  *
  */
-public class MBS extends SearchStrategy 
+public class Icaps21AHS extends SearchStrategy
 {
 	private MongoClient heuristicDataset;
 	
 	/**
 	 * 
 	 */
-	protected MBS() {
-		super("MultiobjectiveBlindSearchStrategy");
+	protected Icaps21AHS() {
+		super("AStarHeuristicSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();
 	}
@@ -171,33 +170,12 @@ public class MBS extends SearchStrategy
 	 * 
 	 */
 	@Override
-	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) 
-	{
+	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) {
 		// get costs as the sum of actual cost and heuristic estimation (a* like)
-		double c1 = o1.getPlanCost();
-		double c2 = o2.getPlanCost();
-		
-		// get makespan as the sum of actual makespan and heuristic estimation
-		double m1 = o1.getPlanMakespan()[0];
-		double m2 = o2.getPlanMakespan()[0];
-		
-		// get risk information
-		PlanRisk pr1 = (PlanRisk) o1.getDomainSpecificMetric();
-		PlanRisk pr2 = (PlanRisk) o2.getDomainSpecificMetric();
-		
-		// get risk as the sum of actual risk and heuristic esitimation
-		double r1 = pr1.getPlanRisk();
-		double r2 = pr2.getPlanRisk();
-		
-		// chekc dominancy between partial plans
-		return m1 < m2 && r1 < r2 ? -1 : m1 > m2 && r1 > r2 ? 1 :
-			// check heuristic distance to solutions
-			o1.getDepth() < o2.getDepth() ? -1 : o1.getDepth() > o2.getDepth() ? 1 :
-				// check heursitics makespan
-				m1 < m2 ? -1 : m1 > m2 ? 1 :
-					// check heuristic distance to solutions
-					c1 < c2 ? -1 : c1 > c2 ? 1 : 0;
-				
+		double c1 = o1.getPlanCost() + o1.getPlanHeuristicCost()[0];
+		double c2 = o2.getPlanCost() + o2.getPlanHeuristicCost()[0];
+		// check heuristic cost only 
+		return c1 < c2 ? -1 : c1 > c2 ? 1 : 0; 
 	}
 	
 	/**
@@ -207,9 +185,9 @@ public class MBS extends SearchStrategy
 	private MongoCollection<Document> getDataset() 
 	{
 		// get data-base
-		MongoDatabase db = this.heuristicDataset.getDatabase("sharework");
+		MongoDatabase db = this.heuristicDataset.getDatabase("roxanne_icaps21");
 		// select data-set
-		MongoCollection<Document> collection = db.getCollection("hrc_task_dynamic_risks");
+		MongoCollection<Document> collection = db.getCollection("hrc_risk_dynamics");
 		// return collection
 		return collection;
 	}

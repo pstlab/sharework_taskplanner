@@ -13,15 +13,15 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  *
  */
-public class TaskFeedbackListener extends RosJavaFeedbackListener<sharework_taskplanner_msgs.TaskExecutionFeedback>
+public class TaskFeedbackListener extends RosJavaFeedbackListener<task_planner_interface_msgs.TaskExecutionFeedback>
 {
 	private static final AtomicLong feedbackIdCounter = new AtomicLong(0);
 
 	private static final PlatformFeedbackType[] RESULT = new PlatformFeedbackType[] {
 
-			PlatformFeedbackType.SUCCESS,			// index 0 -> successful execution
+			PlatformFeedbackType.FAILURE,			// index 1 -> successful execution
 
-			PlatformFeedbackType. FAILURE			// index 1 -> execution failure
+			PlatformFeedbackType.SUCCESS,			// index 0 -> execution failure
 	};
 
 	/**
@@ -38,7 +38,7 @@ public class TaskFeedbackListener extends RosJavaFeedbackListener<sharework_task
 	 */
 	@Override
 	public String getMessageType() {
-		return sharework_taskplanner_msgs.TaskExecutionFeedback._TYPE;
+		return task_planner_interface_msgs.TaskExecutionFeedback._TYPE;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class TaskFeedbackListener extends RosJavaFeedbackListener<sharework_task
 	 * @throws MessageUnmarshalingException
 	 */
 	@Override
-	public PlatformFeedback unmarshal(sharework_taskplanner_msgs.TaskExecutionFeedback message)
+	public PlatformFeedback unmarshal(task_planner_interface_msgs.TaskExecutionFeedback message)
 			throws MessageUnmarshalingException {
 
 		// retrieve issued command

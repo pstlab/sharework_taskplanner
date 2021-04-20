@@ -4,12 +4,17 @@ import it.cnr.istc.pst.platinum.ai.deliberative.solver.SearchSpaceNode;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.DomainComponent;
 
 /**
- * 
- * @author alessandroumbrico
  *
  */
-public class MinDeltaMHS extends MHS 
+public class MinDeltaMHS extends ShareworkSearchStrategy
 {
+	/**
+	 *
+	 */
+	protected MinDeltaMHS() {
+		super("MinDeltaMHS");
+	}
+
 	/**
 	 * 
 	 */

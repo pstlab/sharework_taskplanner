@@ -28,9 +28,9 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.OFF
 )
-public class NissanPlanner extends Planner
+public class NissanPlannerTest extends Planner
 {
-	protected NissanPlanner() {
+	protected NissanPlannerTest() {
 		super();
 	}
 	
@@ -56,7 +56,7 @@ public class NissanPlanner extends Planner
 			
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
-					NissanPlanner.class, pdb);
+					NissanPlannerTest.class, pdb);
 
 			// start planning
 			SolutionPlan plan = planner.plan();

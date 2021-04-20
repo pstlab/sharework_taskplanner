@@ -12,15 +12,15 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  *
  */
-public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<sharework_taskplanner_msgs.MotionTaskExecutionFeedback>
+public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<task_planner_interface_msgs.MotionTaskExecutionFeedback>
 {
 	private static final AtomicLong feedbackIdCounter = new AtomicLong(0);
 
 	private static final PlatformFeedbackType[] RESULT = new PlatformFeedbackType[] {
 
-			PlatformFeedbackType.SUCCESS,			// index 0 -> successful execution
+			PlatformFeedbackType.FAILURE,			// index 1 -> successful execution
 
-			PlatformFeedbackType. FAILURE			// index 1 -> execution failure
+			PlatformFeedbackType.SUCCESS,			// index 0 -> execution failure
 	};
 
 	/**
@@ -37,7 +37,7 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<sharewor
 	 */
 	@Override
 	public String getMessageType() {
-		return sharework_taskplanner_msgs.MotionTaskExecutionRequest._TYPE;
+		return task_planner_interface_msgs.MotionTaskExecutionFeedback._TYPE;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<sharewor
 	 * @throws MessageUnmarshalingException
 	 */
 	@Override
-	public PlatformFeedback unmarshal(sharework_taskplanner_msgs.MotionTaskExecutionFeedback message)
+	public PlatformFeedback unmarshal(task_planner_interface_msgs.MotionTaskExecutionFeedback message)
 			throws MessageUnmarshalingException {
 
 		// retrieve issued command
@@ -64,6 +64,11 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<sharewor
 				feedbackIdCounter.getAndIncrement(),
 				cmd,
 				RESULT[(int) message.getResult()]);
+
+		// print message
+		this.log.info("[MotionTaskFeedbackListener] Received feedback about dispatched command:\n" +
+				"- cmd= " + cmd + "\n" +
+				"- feedback= " + feedback + "\n");
 
 		// get feedback
 		return feedback;
