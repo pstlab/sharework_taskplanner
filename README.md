@@ -54,7 +54,7 @@ open-source package enriching ROS with timeline-based planning and execution fun
 the [**PLATINUm**](https://github.com/pstlab/PLATINUm) framework [2] which has been successfully applied in Human-Robot Collaboration 
 scenarios [3,4]. 
 
-ROXANNE is a available as ROSJava package and can be easily installed by cloning the repository into the prepared ROSJava workspace. First clone the **roxanne_rosjava_msgs package** into the workspace in order to define the **custom messages** necessary to interact with a generic ROXANNE **acting node**.
+ROXANNE is a available as ROSJava package and can be easily installed by cloning the repository into the prepared ROSJava workspace. Clone the **roxanne_rosjava_msgs package** into the workspace in order to define the **custom messages** necessary to interact with a generic ROXANNE **acting node**.
 
 ```
 cd ~/ws/src
@@ -64,7 +64,7 @@ catkin_make
 source devel/setup.bash
 ```
 
-Then install the **ROXANNE framework** by cloning into the workspace in order to "install" core software library that can be extended to realize 
+Install the **ROXANNE framework** by cloning into the workspace in order to "install" core software library that can be extended to realize 
 specific (timeline-based) planning and execution instances as well as instantiate the generic **ROXANNE acting node**.
 
 ```
