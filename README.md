@@ -64,7 +64,7 @@ catkin_make
 source devel/setup.bash
 ```
 
-Then installe the **ROXANNE framework** by cloning into the workspace in order to "install" core software library that can be extended to realize 
+Then install the **ROXANNE framework** by cloning into the workspace in order to "install" core software library that can be extended to realize 
 specific (timeline-based) planning and execution instances as well as instantiate the generic **ROXANNE acting node**.
 
 ```
