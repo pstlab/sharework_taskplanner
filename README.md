@@ -108,78 +108,61 @@ string goal
 int64[] start
 int64[] end
 int64[] duration
-
-```
-
-### Gradle Configuration
-
-Before buliding the ROS package configure **gradle** so that all the dependencies are correctly downloaded. This module indeed relies on some packages (e.g., [PLATINUm](https://github.com/pstlab/PLATINUm)) that are not deployed on maven central but on GitHub. 
-
-To allow gradle to download packages from GitHub repositories create a text file ```gradle.properties``` under ```sharework_knowledge```. This file should specifiy a **GitHub username** and a **GitHub access token** as follows: 
-
-```
-gpr.user=<github-user>
-gpr.token=<github-personal-access-token>
-```
-See how to create personal access token on [the official GitHub page](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) if necessary). Be sure to select the scope ```read:packages``` when creating the personal access token in order to successfully read GitHub packages.
-
-As alternative to the file ```gradle.properties``` the same configuration parameters can be specified using environment variables. For example add to  ```.bashrc``` the definition of the following variables:
-
-```
-export GITHUB_USER=<github-user>
-export GITHUB_TOKEN=<github-personal-access-token>
 ```
 
 ### Bulding the Package
 
-At this point install the **sharework_knowledge package** into the ROSJava workspace by cloning and installing the current repository.
+At this point install the **sharework_taskplanner package** into the ROSJava workspace by cloning and installing the current repository.
 
 ```
 cd ~/ws/src
-git clone https://github.com/pstlab/sharework_knowledge.git
+git clone https://github.com/pstlab/sharework_taskplanner.git
 cd ..
 source devel/setup.bash
 catkin_make
 source devel/setup.bash
 ```
 
-To finalize the installation just define the environment variable **SHAREWORK_KNOWLEDGE** in order to point to the folder containing the installed package. 
-
+To finalize the installation just define the environment variable **PLATINUM_HOME** in order to point to the folder containing the installed package. Since ROXANNE encapsulate PLATINUm as core timeline-based representation and solving engine, this variable is necessary to tell the framework where configuration files would be found (see the files under the ```etc``` folder of the package).
+ 
 ```
 export SHAREWORK_WS=<path-to-the-workspace>
-export SHAREWORK_KNOWLEDGE=$SHAREWORK_WS/src/sharework_knowledge
+export PLATINUM_HOME=$SHAREWORK_WS/src/sharework_taskplanner
 ```
 
 The above line of code can be added to the ```.bashrc``` file to automatically export the environment variable when the terminal is open. 
 
 ## Package Usage 
 
-If the the installation and configuration of the **sharework_knowledge** package has been successfully done then it should be possible to run the ROS node starting the developed knowledge services.
+If the the installation and configuration of the **sharework_taskplanner** package has been successfully done then it should be possible to run the developed **goal-oriented acting node** into ROS.
 
 First open a terminal and start core ROS nodes using ```roscore```. 
 
-Then, open a different terminal and launch the service as follows:
+Then, open a different terminal and launch the acting node as follows:
 
 ```
 cd ~/ws
 source devel/setup.bash
-rosrun sharework_knowledge production_knowledge it.cnr.istc.pst.sharework.service.KnowledgeService
+rosrun sharework_taskplanner taskplanner com.github.sharework_taskplanner.taskplanner.acting.ActingNode
 ```
 
-At this point the service is running and can be called to interact with the knowledg base. As an example considered the following commands to be executed on a third terminal. The commands load one of the ontological models availabine under the folder ```etc/ontologies``` of hte package structure and query the model using respectively the **/sharework/knowledge/update** and **/sharework/knwoledge/api** services.
+At this point the service is running and can be called to _load_ planning models and send _task planning requests_. As an example consider the following commands to be executed on a third terminal. The commands load one of the timeline-based models availabine under the folder ```domains/sharework``` of the package and send a task planning request through the input topic ```sharework/taskplanner/goal```.
 
 ```
 cd ~/ws
 source devel/setup.bash
-rosservice call /sharework/knowledge/update "load" ["<absolute_path>/ws/src/sharework_knowledge/etc/ontologies/soho_cembre_v0.1.owl"]
-rosservice call /sharework/knowledge/api "get_workers" []
+rosservice call /sharework/taskplanner/configuration "configFilePath: '<absolute-path>/ws/robotics/sharework/src/sharework_taskplanner/etc/agent_cembre.properties'"
+rostopic pub --once /sharework/taskplanner/goal task_planner_interface_msgs/TaskPlanningRequest "requestId: 0
+component: 'Goal'
+goal: 'cembre_goal'
+start: [0, 1000]
+end: [0, 1000]
+duration: [1, 1000]" 
 ```
 
-The frist call load the ontological model defined for one of the case studies of the project in order to fill the knowledge base with the information characterizing the considered collaborative process. _Please note that the file path specified into the "load request" should be absolute._ 
+The frist call load the specified file properties to intialize the acting node with a timeline-based specification defined for one of the case studies of the project. This call uses the _ROXANNE configuration service_ ```ActingConfigurationService.srv``` to parametrize the information needed to start (domain independent) timeline-based planning and execution processes. _Please note that the file path specified into the "load request" should be absolute._ 
 
-_Note also that when the model is loaded the authoring service is triggered to automatically generate and validate an updated timeline-based planning model for the considered HRC scenario. The authoring process runs in background (i.e., it does not slow down queries/updates on the knowledge) and the output is the file ```prod_knowledge.ddl``` under the folder ```gen``` of the package structure._
-
-The second call retrieves information about defined workers i.e., individuals of the ontological class ```SOHO:WorkOperator```.
+Once the acting node is correctly initialized the underlying goal-oriented process starts listening messages on the topic specified into the deployment file (see the file ```etc/platform/sharework/platform_cembre.xml``` as an example for the scenario CEMBRE). The second call thus publishes a task planning request on the input topic ```/sharework/taskplanner/goal``` to trigger the deliberative process and concretely synthesize and execute a collaborative plan.
 
 
 ## References 
