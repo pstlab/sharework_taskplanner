@@ -1,0 +1,171 @@
+# Task Planning Module for Sharework
+
+This repository contains a **ROSjava package** enriching **ROS** with **task planning and execution services**. The module has been specifically 
+designed for **Human-Robot Collaboration** with the objective of synthesizing flexible and reliable collaboration through timeline-based planning 
+technologies [1].
+
+## Installation
+
+The package has been developed and tested for **ROS Melodic** distribution on **Ubunut 18.04**. It requires a ROSJava workspace for correct 
+execution and generation of the Java artifacts needed for custom messages and installed Java software.
+
+_We recommend the use of Java 8 since other higher or lower versions of Java may have some dependency issues with rosjava. Alternative 
+versions of Java can be installed using the following command:_ 
+
+```sudo update-alternatives --config java```
+
+In addition, the package requires an installed locally running instance of **MongoDB server** (the current package has been 
+developed and tested using [_MongDB Cumminuty Server v.4.4.5_](https://www.mongodb.com/try/download/community)). 
+
+### ROSJava Workspace Configuration
+
+Create an empty workspace.
+
+```
+mkdir -p ~/ws/src
+cd ~/ws
+catkin_make
+```
+
+Here are the instructions for downloading and building **ROSJava from source** (recommended). Please refer to the official 
+[ROSJava Wiki](http://wiki.ros.org/rosjava) for further details about installation and availabe distributions.
+
+```
+wstool init -j4 ~/ws/src https://raw.githubusercontent.com/rosjava/rosjava/kinetic/rosjava.rosinstall
+source /opt/ros/melodic/setup.bash
+cd ~/ws
+rosdep update
+rosdep install --from-paths src -i -y
+catkin_make
+```
+Note that one of the dependecies of **rosjava_messages** package is [world_canvas_msgs](http://wiki.ros.org/world_canvas_msgs) 
+which is not supported by ROS Melodic. To successfully build **rosjava** thus remove this dependency by editing the file 
+```package.xml``` of ```rosjava_messages``` and commenting the following line
+
+```
+<build_depend>world_canvas_msgs</build_depend>
+```
+
+### ROXANNE Installation
+
+Planning and execution capabilities of the module relies on [*ROXANNE**](https://github.com/pstlab/roxanne_rosjava) which is an 
+open-source ROS framework.
+
+
+
+### Package Preparation 
+
+Once that a **ROSJava workspace** has been successfully configured and that **ROXANNE** has been correctly installed everything 
+is ready for the installation of the **sharework_taskplanner package**. 
+
+First, it is necessary to install the ROSjava package **sharework_knowledge_msgs** defining custom messages and services. This package is available on GitHub (https://github.com/pstlab/sharework_knowledge_msgs.git) and can be installed into the ROSJava workspace as follows: 
+
+```
+cd ~/ws/src
+git clone https://github.com/pstlab/sharework_knowledge_msgs.git
+cd ~/ws
+catkin_make
+source ~/ws/devel/setup.bash
+```
+
+It is possible to verify the successful built of the package by checking ROS service description through ```rossrv show```. For example the following commands
+
+```
+cd ~/ws
+source devel/setup.bash
+rossrv show sharework_knowledge_msgs/KnowledgeRDFUpdatePoint
+```
+should give the following output which describes the request and response defined for the service **KnowledgeRDFUpdatePoint**
+
+```
+string updateType
+string[] data
+---
+sharework_knowledge_msgs/KnowledgeRDFTriple[] result
+  string subject
+  string property
+  string object
+
+```
+
+### Gradle Configuration
+
+Before buliding the ROS package configure **gradle** so that all the dependencies are correctly downloaded. This module indeed relies on some packages (e.g., [PLATINUm](https://github.com/pstlab/PLATINUm)) that are not deployed on maven central but on GitHub. 
+
+To allow gradle to download packages from GitHub repositories create a text file ```gradle.properties``` under ```sharework_knowledge```. This file should specifiy a **GitHub username** and a **GitHub access token** as follows: 
+
+```
+gpr.user=<github-user>
+gpr.token=<github-personal-access-token>
+```
+See how to create personal access token on [the official GitHub page](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) if necessary). Be sure to select the scope ```read:packages``` when creating the personal access token in order to successfully read GitHub packages.
+
+As alternative to the file ```gradle.properties``` the same configuration parameters can be specified using environment variables. For example add to  ```.bashrc``` the definition of the following variables:
+
+```
+export GITHUB_USER=<github-user>
+export GITHUB_TOKEN=<github-personal-access-token>
+```
+
+### Bulding the Package
+
+At this point install the **sharework_knowledge package** into the ROSJava workspace by cloning and installing the current repository.
+
+```
+cd ~/ws/src
+git clone https://github.com/pstlab/sharework_knowledge.git
+cd ..
+source devel/setup.bash
+catkin_make
+source devel/setup.bash
+```
+
+To finalize the installation just define the environment variable **SHAREWORK_KNOWLEDGE** in order to point to the folder containing the installed package. 
+
+```
+export SHAREWORK_WS=<path-to-the-workspace>
+export SHAREWORK_KNOWLEDGE=$SHAREWORK_WS/src/sharework_knowledge
+```
+
+The above line of code can be added to the ```.bashrc``` file to automatically export the environment variable when the terminal is open. 
+
+## Package Usage 
+
+If the the installation and configuration of the **sharework_knowledge** package has been successfully done then it should be possible to run the ROS node starting the developed knowledge services.
+
+First open a terminal and start core ROS nodes using ```roscore```. 
+
+Then, open a different terminal and launch the service as follows:
+
+```
+cd ~/ws
+source devel/setup.bash
+rosrun sharework_knowledge production_knowledge it.cnr.istc.pst.sharework.service.KnowledgeService
+```
+
+At this point the service is running and can be called to interact with the knowledg base. As an example considered the following commands to be executed on a third terminal. The commands load one of the ontological models availabine under the folder ```etc/ontologies``` of hte package structure and query the model using respectively the **/sharework/knowledge/update** and **/sharework/knwoledge/api** services.
+
+```
+cd ~/ws
+source devel/setup.bash
+rosservice call /sharework/knowledge/update "load" ["<absolute_path>/ws/src/sharework_knowledge/etc/ontologies/soho_cembre_v0.1.owl"]
+rosservice call /sharework/knowledge/api "get_workers" []
+```
+
+The frist call load the ontological model defined for one of the case studies of the project in order to fill the knowledge base with the information characterizing the considered collaborative process. _Please note that the file path specified into the "load request" should be absolute._ 
+
+_Note also that when the model is loaded the authoring service is triggered to automatically generate and validate an updated timeline-based planning model for the considered HRC scenario. The authoring process runs in background (i.e., it does not slow down queries/updates on the knowledge) and the output is the file ```prod_knowledge.ddl``` under the folder ```gen``` of the package structure._
+
+The second call retrieves information about defined workers i.e., individuals of the ontological class ```SOHO:WorkOperator```.
+
+
+## References 
+
+[1] Cialdea Mayer, M., Orlandini, A., Umbrico, A. "Planning and execution with flexible timelines: a formal account". Acta Informatica. Volume 53. 2016. Pages 649–680.
+
+[2] Umbrico A., Cesta A., Cialdea Mayer M., Orlandini A. "PLATINUm: A New Framework for Planning and Acting". In: Esposito F., Basili R., Ferilli S., Lisi F. (eds) AI*IA 2017 Advances in Artificial Intelligence. AI*IA 2017. Lecture Notes in Computer Science, Volume 10640. 2017.
+
+[3] M. Faroni, Beschi M., Ghidini S., Pedrocchi N., Umbrico A., Orlandini A., Cesta A. "A Layered Control Approach to Human-Aware Task and Motion Planning for Human-Robot Collaboration". 29th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN). 2020. Pages 1204-1210.
+
+[4] Pellegrinelli S., Orlandini A., Pedrocchi N., Umbrico A., Tolio T. "Motion planning and scheduling for human and industrial-robot collaboration". CIRP Annals.
+Volume 66, Issue 1. 2017. Pages 1-4.
