@@ -69,44 +69,45 @@ specific (timeline-based) planning and execution instances as well as instantiat
 
 ```
 cd ~/ws/src
-https://github.com/pstlab/roxanne_rosjava.git
+git clone https://github.com/pstlab/roxanne_rosjava.git
 cd ..
 catkin_make
 source devel/setup.bash
 ```
+
+Refer to the [ROXANNE repository](https://github.com/pstlab/roxanne_rosjava) for further details and examples of usage to check the correct installation.
 
 ### Package Preparation 
 
 Once that a **ROSJava workspace** has been successfully configured and that **ROXANNE** has been correctly installed everything 
 is ready for the installation of the **sharework_taskplanner package**. 
 
-First, it is necessary to install the ROSjava package **sharework_knowledge_msgs** defining custom messages and services. This package is available on GitHub (https://github.com/pstlab/sharework_knowledge_msgs.git) and can be installed into the ROSJava workspace as follows: 
+First, it is necessary to install the package **task_planner_interface_msgs** defining custom messages and services that allow the task planner to correctly interact with other Sharework modules. This package is available on GitHub (https://github.com/pstlab/task_planner_interface_msgs.git) and can be installed into the workspace through the following commands:
 
 ```
 cd ~/ws/src
-git clone https://github.com/pstlab/sharework_knowledge_msgs.git
+git clone https://github.com/pstlab/task_planner_interface_msgs.git
 cd ~/ws
 catkin_make
-source ~/ws/devel/setup.bash
+source devel/setup.bash
 ```
 
-It is possible to verify the successful built of the package by checking ROS service description through ```rossrv show```. For example the following commands
+It is possible to verify the successful built of the package by checking defined custom messages service through ```rosmsg show```. For example the following commands
 
 ```
 cd ~/ws
 source devel/setup.bash
-rossrv show sharework_knowledge_msgs/KnowledgeRDFUpdatePoint
+rosmsg show task_planner_interface_msgs/TaskPlanningRequest
 ```
-should give the following output which describes the request and response defined for the service **KnowledgeRDFUpdatePoint**
+should give the following output which describes the message used to send task planning request to the module throug the topic ```sharework/taskplanner/goal```.
 
 ```
-string updateType
-string[] data
----
-sharework_knowledge_msgs/KnowledgeRDFTriple[] result
-  string subject
-  string property
-  string object
+int64 requestId
+string component
+string goal
+int64[] start
+int64[] end
+int64[] duration
 
 ```
 
