@@ -74,6 +74,12 @@ cd ..
 catkin_make
 source devel/setup.bash
 ```
+To corectly install **ROXANNE** it is necessary to configure **gradle** with a **github personal access token** in order to download the last version of PLATINum that is available as Github package. Create a file ```gradle.properties``` into ```roxanne_rosjava``` with the following attributes:
+
+```
+gpr.user=<github-user>
+gpr.token=<github-personal-access-token>
+```
 
 Refer to the [ROXANNE repository](https://github.com/pstlab/roxanne_rosjava) for further details and examples of usage to check the correct installation.
 
