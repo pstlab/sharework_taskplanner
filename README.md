@@ -128,8 +128,14 @@ source devel/setup.bash
 catkin_make
 source devel/setup.bash
 ```
+As done for ROXANNE, create a file ```gradle.properties``` into ```sharework_taskplanner``` with the GitHub personal access token.
 
-To finalize the installation just define the environment variable **PLATINUM_HOME** in order to point to the folder containing the installed package. Since ROXANNE encapsulate PLATINUm as core timeline-based representation and solving engine, this variable is necessary to tell the framework where configuration files would be found (see the files under the ```etc``` folder of the package).
+```
+gpr.user=<github-user>
+gpr.token=<github-personal-access-token>
+````
+
+To finalize the installation then define the environment variable **PLATINUM_HOME** in order to point to the folder containing the installed package. Since ROXANNE encapsulate PLATINUm as core timeline-based representation and solving engine, this variable is necessary to tell the framework where configuration files would be found (see the files under the ```etc``` folder of the package).
  
 ```
 export SHAREWORK_WS=<path-to-the-workspace>
