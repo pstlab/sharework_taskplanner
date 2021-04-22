@@ -446,12 +446,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 			d0 ProductionL1.tasks_l1.doPickPlaceSquadraGrande2();
 			CONTAINS [0, +INF] [0, +INF] d0;
-			d1 ProductionL1.tasks_l1.doPickPlaceSquadraGrande1();
-			CONTAINS [0, +INF] [0, +INF] d1;
 			d2 ProductionL1.tasks_l1.doPickPlaceSquadraPiccola1();
 			CONTAINS [0, +INF] [0, +INF] d2;
-			d3 ProductionL1.tasks_l1.doPickPlaceSquadraPiccola2();
-			CONTAINS [0, +INF] [0, +INF] d3;
 		}
 
 	}
@@ -460,24 +456,6 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		 VALUE doPlaceSquadraPiccolaRobot() {
 
-			d0 ProductionL4.tasks_l4.doPlaceBoxBRobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraPiccolaRobot() {
-
-			d0 ProductionL4.tasks_l4.doPlaceBoxARobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraPiccolaRobot() {
-
-			d0 ProductionL4.tasks_l4.doPlaceBoxBRobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraPiccolaRobot() {
-
 			d0 ProductionL4.tasks_l4.doPlaceBoxARobot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
@@ -497,24 +475,6 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 		 VALUE doPlaceSquadraGrandeRobot() {
 
 			d0 ProductionL4.tasks_l4.doPlaceBoxBRobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraGrandeRobot() {
-
-			d0 ProductionL4.tasks_l4.doPlaceBoxARobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraGrandeRobot() {
-
-			d0 ProductionL4.tasks_l4.doPlaceBoxBRobot();
-			CONTAINS [0, +INF] [0, +INF] d0;
-		}
-
-		 VALUE doPlaceSquadraGrandeRobot() {
-
-			d0 ProductionL4.tasks_l4.doPlaceBoxARobot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
