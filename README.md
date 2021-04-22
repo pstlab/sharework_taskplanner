@@ -157,7 +157,7 @@ At this point the service is running and can be called to _load_ planning models
 ```
 cd ~/ws
 source devel/setup.bash
-rosservice call /sharework/taskplanner/configuration "configFilePath: '<absolute-path>/ws/robotics/sharework/src/sharework_taskplanner/etc/agent_cembre.properties'"
+rosservice call /sharework/taskplanner/configuration "configFilePath: '<absolute-path-to-workspace>/src/sharework_taskplanner/etc/agent_cembre.properties'"
 rostopic pub --once /sharework/taskplanner/goal task_planner_interface_msgs/TaskPlanningRequest "requestId: 0
 component: 'Goal'
 goal: 'cembre_goal'
