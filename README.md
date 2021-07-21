@@ -144,6 +144,8 @@ export PLATINUM_HOME=$SHAREWORK_WS/src/sharework_taskplanner
 
 The above line of code can be added to the ```.bashrc``` file to automatically export the environment variable when the terminal is open. 
 
+**IMPORTANT: Carefully check the files ```agent*.properties``` under the folder ```etc``` and verify the correctness of specified paths with respect to your filesystem**
+
 ## Package Usage 
 
 If the the installation and configuration of the **sharework_taskplanner** package has been successfully done then it should be possible to run the developed **goal-oriented acting node** into ROS.
@@ -164,9 +166,13 @@ At this point the service is running and can be called to _load_ planning models
 cd ~/ws
 source devel/setup.bash
 rosservice call /sharework/taskplanner/configuration "configFilePath: '<absolute-path-to-workspace>/src/sharework_taskplanner/etc/agent_cembre.properties'"
+```
+Then, send a task planning and execution request as follows:
+```
 rostopic pub --once /sharework/taskplanner/goal task_planner_interface_msgs/TaskPlanningRequest "requestId: 0
 component: 'Goal'
 goal: 'cembre_goal'
+parameters: []
 start: [0, 1000]
 end: [0, 1000]
 duration: [1, 1000]" 
