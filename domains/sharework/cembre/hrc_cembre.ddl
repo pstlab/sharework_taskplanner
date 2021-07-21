@@ -36,12 +36,12 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			Idle();
 		}
 
-		VALUE _pick_squadra_piccola() [1, +INF]
+		VALUE _pick_squadra_piccola() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pick_squadra_grande() [1, +INF]
+		VALUE _pick_squadra_grande() [1, 20]
 		MEETS {
 			Idle();
 		}
@@ -58,22 +58,22 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			_pick_squadra_grande();
 		}
 
-		VALUE _place_box_B() [1, +INF]
+		VALUE _place_box_B() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _place_box_A() [1, +INF]
+		VALUE _place_box_A() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pick_squadra_piccola() [1, +INF]
+		VALUE _pick_squadra_piccola() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pick_squadra_grande() [1, +INF]
+		VALUE _pick_squadra_grande() [1, 20]
 		MEETS {
 			Idle();
 		}

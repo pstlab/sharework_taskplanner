@@ -85,6 +85,13 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
             duration = msg.getDuration();
         }
 
+        String[] parameters = new String[] {};
+        if (msg.getParameters() != null && msg.getParameters().size() > 0) {
+            // get array of parameters
+            parameters = msg.getParameters().toArray(new String[msg.getParameters().size()]);
+        }
+
+
         // received input goal
         log.info("Received a task to plan for: \"" + msg + "\"\n");
         // prepare a task description
@@ -93,7 +100,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
         task.addGoalDescription(new TokenDescription(
                 component,
                 goal,
-                null,
+                parameters,
                 start,
                 end,
                 duration));
