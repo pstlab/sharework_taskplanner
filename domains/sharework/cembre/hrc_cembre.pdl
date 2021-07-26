@@ -1,4 +1,7 @@
-PROBLEM AUTHORING_CEMBRE_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN)
-{
+PROBLEM AUTHORING_CEMBRE_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN) {
+
+    f0 <fact> Worker.operations.Idle() AT [0, 0] [0, +INF] [1, +INF];
+    f1 <fact> Cobot.tasks.Idle() AT [0, 0] [0, +INF] [1, +INF];
+
     g0 <goal> Goal.goals.cembre_goal() AT [0, +INF] [0, +INF] [1, +INF];
 }
