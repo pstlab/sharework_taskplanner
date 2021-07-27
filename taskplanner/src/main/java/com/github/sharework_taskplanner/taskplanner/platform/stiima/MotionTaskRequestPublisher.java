@@ -76,7 +76,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
 		// set task id
-		String taskId = cmd.getName().replace("_", "").trim().toLowerCase();
+		String taskId = cmd.getName().replace("_", "").trim();
 		// check parameters
 		if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
 			for (String param : cmd.getParamValues()) {
