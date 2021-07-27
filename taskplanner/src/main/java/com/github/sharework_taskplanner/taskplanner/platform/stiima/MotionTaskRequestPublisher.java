@@ -97,7 +97,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 		// set message data
 		task.setTaskId(taskId);
-		task.setTaskName(cmd.getName().trim());
+		task.setTaskName(taskId);
 		task.setCfgStart(doc.getString("target"));
 		task.setCfgGoal(doc.getString("goal"));
 		task.setTaskDescription(doc.getString("description"));
@@ -107,12 +107,20 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		task.setHumanTasks(new ArrayList<String>());
 		// add task
 		tasks.add(task);
+		// print message
+		this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
+				"- cmd= " + cmd + "\n" +
+				"- taskId= " + task.getTaskId() + "\n" +
+				"- taskName= " + task.getTaskName() + "\n" +
+				"- taskDescription= " + task.getTaskDescription() + "\n" +
+				"- taskGoal= " + task.getCfgGoal() + "\n");
 
 		// check the next 2 nodes on the component (if any)
 		ExecutionNode next = cmd.getNode().getNext();
 		int counter = 0;
 		while (next != null && counter < 2) { //&& !this.proxy.isPlatformCommand(next)) {
 
+			this.log.info("Next Predicate on the timeline \"" + next.getPredicate().getGroundSignature() + "\"");
 			// check if a command has been found
 			if (this.proxy.isPlatformCommand(next)) {
 
@@ -127,13 +135,18 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				task = node.getTopicMessageFactory().
 						newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
+				// gte predicate
+				String predicate = next.getPredicate().getGroundSignature().replace("_", "");
+				String[] splits = predicate.split("-");
+
+
 				// set task ID
-				taskId = cmd.getName().replace("_", "").trim();
+				taskId = splits[0];
 				// check parameters
-				if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
-					for (String param : cmd.getParamValues()) {
+				if (splits.length > 1) {
+					for (int i = 1; i < splits.length; i++) {
 						// concat parameters
-						taskId += "-" + param.trim();
+						taskId += "-" + splits[i].trim();
 					}
 				}
 
@@ -145,13 +158,13 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 				// set message data
 				task.setTaskId(taskId);
-				task.setTaskName(cmd.getName().trim());
+				task.setTaskName(taskId);
 				task.setCfgStart(doc.getString("target"));
 				task.setCfgGoal(doc.getString("goal"));
 				task.setTaskDescription(doc.getString("description"));
 				task.setRiskLevel(0.0);
 				// get average expected time
-				task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
+				task.setExpectedTime(next.getInterval().getDurationUpperBound() - next.getInterval().getDurationUpperBound() / 2);
 				task.setHumanTasks(new ArrayList<String>());
 				// add task
 				tasks.add(task);
@@ -174,16 +187,6 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 		// set request tasks
 		request.setTasks(tasks);
-
-
-		// print message
-		this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
-				"- cmd= " + cmd + "\n" +
-				"- taskId= " + task.getTaskId() + "\n" +
-				"- taskName= " + task.getTaskName() + "\n" +
-				"- taskDescription= " + task.getTaskDescription() + "\n" +
-				"- taskGoal= " + task.getCfgGoal() + "\n");
-
 
 		// get the request
 		return request;
