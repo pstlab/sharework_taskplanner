@@ -81,7 +81,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
 			for (String param : cmd.getParamValues()) {
 				// concat parameters
-				taskId += "-" + param.toLowerCase();
+				taskId += "-" + param.trim();
 			}
 		}
 
@@ -97,7 +97,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 		// set message data
 		task.setTaskId(taskId);
-		task.setTaskName(cmd.getName().toLowerCase());
+		task.setTaskName(cmd.getName().trim());
 		task.setCfgStart(doc.getString("target"));
 		task.setCfgGoal(doc.getString("goal"));
 		task.setTaskDescription(doc.getString("description"));
@@ -131,21 +131,24 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 						newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
 				// set task ID
-				taskId = cmd.getName().replace("_", "").trim().toLowerCase();
+				taskId = cmd.getName().replace("_", "").trim();
 				// check parameters
 				if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
 					for (String param : cmd.getParamValues()) {
 						// concat parameters
-						taskId += "-" + param.toLowerCase();
+						taskId += "-" + param.trim();
 					}
 				}
+
+				// print message
+				this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
 
 				// retrieve task properties from mongo
 				doc = this.collection.find(Filters.eq("name", taskId)).first();
 
 				// set message data
 				task.setTaskId(taskId);
-				task.setTaskName(cmd.getName().toLowerCase());
+				task.setTaskName(cmd.getName().trim());
 				task.setCfgStart(doc.getString("target"));
 				task.setCfgGoal(doc.getString("goal"));
 				task.setTaskDescription(doc.getString("description"));
