@@ -18,9 +18,9 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<task_pla
 
 	private static final PlatformFeedbackType[] RESULT = new PlatformFeedbackType[] {
 
-			PlatformFeedbackType.FAILURE,			// index 1 -> successful execution
+			PlatformFeedbackType.FAILURE,			// index 0 -> execution failure
 
-			PlatformFeedbackType.SUCCESS,			// index 0 -> execution failure
+			PlatformFeedbackType.SUCCESS,			// index 1 -> successful execution
 	};
 
 	/**
@@ -55,8 +55,8 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<task_pla
 		if (cmd == null) {
 			// throw exception
 			throw new MessageUnmarshalingException("Received feedback about a non-dispatched command:\n" +
-					"\t- CommandId: " + message.getCmdId() + "\n" +
-					"\t- Feedback: " + message + "\n");
+					"\t- CommandId= " + message.getCmdId() + "\n" +
+					"\t- Feedback= " + message + "\n");
 		}
 
 		// create robot action feedback
