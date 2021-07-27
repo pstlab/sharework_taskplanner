@@ -61,8 +61,8 @@ public abstract class ShareworkSearchStrategy extends SearchStrategy {
      */
     @Override
     public SearchSpaceNode dequeue()
-            throws EmptyFringeException
-    {
+            throws EmptyFringeException {
+
         // extract a node from the fringe
         SearchSpaceNode node = super.dequeue();
         // get risk

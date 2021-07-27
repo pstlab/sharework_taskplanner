@@ -3,26 +3,43 @@ package com.github.sharework_taskplanner.taskplanner.platform.stiima;
 import com.github.roxanne_rosjava.roxanne_rosjava_core.control.platform.RosJavaCommandPublisher;
 import com.github.roxanne_rosjava.roxanne_rosjava_core.control.platform.RosJavaPlatformProxy;
 import com.github.roxanne_rosjava.roxanne_rosjava_core.control.platform.ex.MessageMarshalingException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import it.cnr.istc.pst.platinum.ai.executive.pdb.ExecutionNode;
+import it.cnr.istc.pst.platinum.ai.framework.microkernel.FrameworkObject;
+import it.cnr.istc.pst.platinum.ai.framework.utils.properties.FilePropertyReader;
 import it.cnr.istc.pst.platinum.control.lang.PlatformCommand;
 import it.cnr.istc.pst.platinum.control.platform.PlatformProxy;
+import org.bson.Document;
 import org.ros.node.ConnectedNode;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Properties;
 
 /**
  *
  */
-public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_planner_interface_msgs.MotionTaskExecutionRequestArray>
-{
+public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_planner_interface_msgs.MotionTaskExecutionRequestArray> {
+
+	private MongoClient client;
+	private MongoCollection<Document> collection;
+
 	/**
 	 *
 	 * @param proxy
 	 */
 	protected MotionTaskRequestPublisher(RosJavaPlatformProxy proxy) {
 		super(proxy);
+		FilePropertyReader reader = new FilePropertyReader(System.getenv("PLATINUM_HOME") + "/etc/deliberative.properties");
+		// connect to mongo
+		this.client = MongoClients.create(reader.getProperty("mongodb_host"));
+		MongoDatabase db = this.client.getDatabase("sharework");
+		this.collection = db.getCollection("hrc_task_properties");
 	}
 
 	/**
@@ -43,156 +60,121 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 	 */
 	@Override
 	public task_planner_interface_msgs.MotionTaskExecutionRequestArray marshal(ConnectedNode node, PlatformCommand cmd)
-			throws MessageMarshalingException
-	{
+			throws MessageMarshalingException {
+
 		// create message
 		task_planner_interface_msgs.MotionTaskExecutionRequestArray request = node.getTopicMessageFactory()
 				.newFromType(task_planner_interface_msgs.MotionTaskExecutionRequestArray._TYPE);
+
 		// set data
 		request.setCmdId(cmd.getId());
 		// prepare the list of tasks
 		List<task_planner_interface_msgs.MotionTaskExecutionRequest> tasks = new ArrayList<>();
 
+		// create data message
+		task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+				newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
+		// set task id
+		String taskId = cmd.getName().replace("_", "").trim().toLowerCase();
 		// check parameters
-		if (cmd.getParamValues().length == 3)
-		{
-			// create data message
-			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
-
-			// set task id
-			String taskId = cmd.getName().trim().toLowerCase() + cmd.getParamValues()[1].trim().replace("_", "-");
-			// check type of task
-			if (taskId.contains("place")) {
-				taskId = taskId.replace("box-a", "box-A")
-						.replace("box-b", "box-B");
+		if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
+			for (String param : cmd.getParamValues()) {
+				// concat parameters
+				taskId += "-" + param.toLowerCase();
 			}
-
-			// set message data
-			task.setTaskId(taskId);
-			task.setTaskName(cmd.getName().toLowerCase());
-			task.setCfgStart(cmd.getParamValues()[0].trim());
-			task.setCfgGoal(cmd.getParamValues()[1].trim());
-			task.setRiskLevel(Float.parseFloat(cmd.getParamValues()[2].trim()));
-			task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
-			task.setHumanTasks(new ArrayList<String>());
-
-			// add task
-			tasks.add(task);
-			// print message
-			this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
-					"- cmd= " + cmd + "\n" +
-					"- task-ID= " + task.getTaskId() + "\n");
-
 		}
-		else 
-		{
-			// create data message
-			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
-					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
-			// set task id
-			String taskId = cmd.getName().trim().toLowerCase().replace("_", "-");
-			// check type of task
-			if (taskId.contains("place")) {
-				taskId = taskId.replace("box-a", "box-A")
-						.replace("box-b", "box-B");
-			}
+		// retrieve task properties from mongo
+		Document doc = this.collection.find(Filters.eq("name", taskId)).first();
 
-			// set message data
-			task.setTaskId(taskId);
-			task.setTaskName(cmd.getName().toLowerCase());
-			task.setCfgStart("not-set");
-			task.setCfgGoal("not-set");
-			task.setRiskLevel(Float.parseFloat("0.0"));
-			task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
-			task.setHumanTasks(new ArrayList<String>());
+		// set message data
+		task.setTaskId(taskId);
+		task.setTaskName(cmd.getName().toLowerCase());
+		task.setCfgStart(doc.getString("target"));
+		task.setCfgGoal(doc.getString("goal"));
+		task.setTaskDescription(doc.getString("description"));
+		task.setRiskLevel(0.0);
+		// get average expected time
+		task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
+		task.setHumanTasks(new ArrayList<String>());
+		// add task
+		tasks.add(task);
 
-			// add task
-			tasks.add(task);
-			// print message
-			this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
-					"- cmd= " + cmd + "\n" +
-					"- task-ID= " + task.getTaskId() + "\n");
-		}
-		
 		// check the next 2 nodes on the component (if any)
 		ExecutionNode next = cmd.getNode().getNext();
 		int counter = 0;
-		while (next != null && counter < 2 && !this.proxy.isPlatformCommand(next)) {
+		while (next != null && counter < 2) { //&& !this.proxy.isPlatformCommand(next)) {
+
 			// get next command	
-			next = next.getNext();
+			//next = next.getNext();
 			// check if a command has been found
-			if (next != null && this.proxy.isPlatformCommand(next))
-			{
+			//if (next != null && this.proxy.isPlatformCommand(next)) {
+			if (this.proxy.isPlatformCommand(next)) {
+
 				// increment counter
 				counter++;
-
 				// extract command name
 				String name = PlatformProxy.extractCommandName(next);
 				// get next command parameters
 				String[] params = PlatformProxy.extractCommandParameters(next);
 
-				// create data message
-				task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+				// create new task data
+				task = node.getTopicMessageFactory().
 						newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
 
+				// set task ID
+				taskId = cmd.getName().replace("_", "").trim().toLowerCase();
 				// check parameters
-				if (params.length == 3) {
-
-					// set task id
-					String taskId = cmd.getName().trim().toLowerCase() + cmd.getParamValues()[1].trim().replace("_", "-");
-					// check type of task
-					if (taskId.contains("place")) {
-						taskId = taskId.replace("box-a", "box-A")
-								.replace("box-b", "box-B");
+				if (cmd.getParamValues() != null && cmd.getParamValues().length > 0) {
+					for (String param : cmd.getParamValues()) {
+						// concat parameters
+						taskId += "-" + param.toLowerCase();
 					}
-
-					// set message data
-					task.setTaskId(taskId);
-					task.setTaskName(cmd.getName().toLowerCase());
-					task.setCfgStart(params[0].trim());
-					task.setCfgGoal(params[1].trim());
-					task.setRiskLevel(Float.parseFloat(params[2].trim()));
-
-				} else {
-
-					// set task id
-					String taskId = cmd.getName().trim().toLowerCase().replace("_", "-");
-					// check type of task
-					if (taskId.contains("place")) {
-						taskId = taskId.replace("box-a", "box-A")
-								.replace("box-b", "box-B");
-					}
-
-					// set message data
-					task.setTaskId(taskId);
-					task.setTaskName(cmd.getName().toLowerCase().replace("_", "-"));
-					task.setCfgStart("not-set");
-					task.setCfgGoal("not-set");
-					task.setRiskLevel(Float.parseFloat("0.0"));
 				}
 
-				// add task
-				task.setExpectedTime((next.getDuration()[1] - next.getDuration()[0]) / 2);
+				// retrieve task properties from mongo
+				doc = this.collection.find(Filters.eq("name", taskId)).first();
+
+				// set message data
+				task.setTaskId(taskId);
+				task.setTaskName(cmd.getName().toLowerCase());
+				task.setCfgStart(doc.getString("target"));
+				task.setCfgGoal(doc.getString("goal"));
+				task.setTaskDescription(doc.getString("description"));
+				task.setRiskLevel(0.0);
+				// get average expected time
+				task.setExpectedTime((cmd.getNode().getDuration()[1] - cmd.getNode().getDuration()[0]) / 2);
 				task.setHumanTasks(new ArrayList<String>());
+				// add task
 				tasks.add(task);
 			}
 		}
 
-		// check tasks
+		// complete list of tasks if necessary
 		while (tasks.size() < 3) {
 
 			// add empty task to complete description
-			task_planner_interface_msgs.MotionTaskExecutionRequest task = node.getTopicMessageFactory().
+			task = node.getTopicMessageFactory().
 					newFromType(task_planner_interface_msgs.MotionTaskExecutionRequest._TYPE);
+
 			// add task
 			tasks.add(task);
 		}
 
 		// set request tasks
 		request.setTasks(tasks);
+
+
+		// print message
+		this.log.info("[MotionTaskRequestPublisher] Publishing command:\n" +
+				"- cmd= " + cmd + "\n" +
+				"- taskId= " + task.getTaskId() + "\n" +
+				"- taskName= " + task.getTaskName() + "\n" +
+				"- taskDescription= " + task.getTaskDescription() + "\n" +
+				"- taskGoal= " + task.getCfgGoal() + "\n");
+
+
 		// get the request
 		return request;
 	}
