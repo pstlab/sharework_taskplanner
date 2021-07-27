@@ -113,10 +113,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		int counter = 0;
 		while (next != null && counter < 2) { //&& !this.proxy.isPlatformCommand(next)) {
 
-			// get next command	
-			//next = next.getNext();
 			// check if a command has been found
-			//if (next != null && this.proxy.isPlatformCommand(next)) {
 			if (this.proxy.isPlatformCommand(next)) {
 
 				// increment counter
@@ -159,6 +156,9 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				// add task
 				tasks.add(task);
 			}
+
+			// get next command
+			next = next.getNext();
 		}
 
 		// complete list of tasks if necessary
