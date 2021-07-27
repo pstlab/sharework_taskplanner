@@ -89,7 +89,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
 
 		// retrieve task properties from mongo
-		Document doc = this.collection.find(Filters.eq("name", taskId)).first();
+		Document doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
 		if (doc == null) {
 			// throw exception
 			throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
@@ -154,7 +154,11 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
 
 				// retrieve task properties from mongo
-				doc = this.collection.find(Filters.eq("name", taskId)).first();
+				doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
+				if (doc == null) {
+					// throw exception
+					throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+				}
 
 				// set message data
 				task.setTaskId(taskId);
