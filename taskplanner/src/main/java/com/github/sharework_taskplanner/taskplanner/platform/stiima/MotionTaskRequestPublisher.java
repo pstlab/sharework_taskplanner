@@ -85,8 +85,15 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 			}
 		}
 
+		// print message
+		this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
+
 		// retrieve task properties from mongo
 		Document doc = this.collection.find(Filters.eq("name", taskId)).first();
+		if (doc == null) {
+			// throw exception
+			throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+		}
 
 		// set message data
 		task.setTaskId(taskId);
