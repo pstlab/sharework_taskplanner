@@ -24,7 +24,7 @@
 	<command component="Worker" name="*" exclude="idle">
 	
 		<dispatch-topic 
-			name="/sharework/test/stiima/human" 
+			name="/sharework/test/stiima/human_platinum" 
 			msg="task_planner_interface_msgs/MotionTaskExecutionRequestArray"
 			publisher="com.github.sharework_taskplanner.taskplanner.platform.stiima.MotionTaskRequestPublisher" />
 			
