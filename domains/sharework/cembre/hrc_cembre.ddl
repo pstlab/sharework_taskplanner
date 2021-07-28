@@ -235,47 +235,59 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 			d0 ProductionL1.tasks_l1.doTask10();
 			CONTAINS [0, +INF] [0, +INF] d0;
-			d1 ProductionL1.tasks_l1.doTask11();
-			CONTAINS [0, +INF] [0, +INF] d1;
-			d2 ProductionL1.tasks_l1.doTask0();
+
+            d1 ProductionL1.tasks_l1.doTask11();
+            CONTAINS [0, +INF] [0, +INF] d1;
+
+            d2 ProductionL1.tasks_l1.doTask0();
             CONTAINS [0, +INF] [0, +INF] d2;
+
             d3 ProductionL1.tasks_l1.doTask9();
             CONTAINS [0, +INF] [0, +INF] d3;
+
             d4 ProductionL1.tasks_l1.doTask2();
             CONTAINS [0, +INF] [0, +INF] d4;
+
             d5 ProductionL1.tasks_l1.doTask1();
             CONTAINS [0, +INF] [0, +INF] d5;
+
             d6 ProductionL1.tasks_l1.doTask4();
             CONTAINS [0, +INF] [0, +INF] d6;
+
             d7 ProductionL1.tasks_l1.doTask3();
             CONTAINS [0, +INF] [0, +INF] d7;
+
             d8 ProductionL1.tasks_l1.doTask6();
             CONTAINS [0, +INF] [0, +INF] d8;
+
             d9 ProductionL1.tasks_l1.doTask5();
             CONTAINS [0, +INF] [0, +INF] d9;
+
             d10 ProductionL1.tasks_l1.doTask12();
             CONTAINS [0, +INF] [0, +INF] d10;
+
             d11 ProductionL1.tasks_l1.doTask8();
             CONTAINS [0, +INF] [0, +INF] d11;
+
             d12 ProductionL1.tasks_l1.doTask7();
             CONTAINS [0, +INF] [0, +INF] d12;
+
             d13 ProductionL1.tasks_l1.doTask13();
             CONTAINS [0, +INF] [0, +INF] d13;
 
+            d2 BEFORE [0, +INF] d5;
+            d5 BEFORE [0, +INF] d4;
+            d4 BEFORE [0, +INF] d7;
+            d7 BEFORE [0, +INF] d6;
+            d6 BEFORE [0, +INF] d9;
+            d9 BEFORE [0, +INF] d8;
+            d8 BEFORE [0, +INF] d12;
+            d12 BEFORE [0, +INF] d11;
+            d11 BEFORE [0, +INF] d3;
+            d3 BEFORE [0, +INF] d1;
             d0 BEFORE [0, +INF] d1;
-            d1 BEFORE [0, +INF] d2;
-            d2 BEFORE [0, +INF] d3;
-            d3 BEFORE [0, +INF] d4;
-            d4 BEFORE [0, +INF] d5;
-            d5 BEFORE [0, +INF] d6;
-            d6 BEFORE [0, +INF] d7;
-            d7 BEFORE [0, +INF] d8;
-            d8 BEFORE [0, +INF] d9;
-            d9 BEFORE [0, +INF] d11;
-            d10 BEFORE [0, +INF] d11;
-            d11 BEFORE [0, +INF] d12
-            d12 BEFORE [0, +INF] d13;
-
+            d1 BEFORE [0, +inf] d10;
+            d10 BEFORE [0, +INF] d13;
 		}
 
 	}
