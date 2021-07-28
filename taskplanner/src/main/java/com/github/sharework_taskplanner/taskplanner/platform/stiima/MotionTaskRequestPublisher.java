@@ -97,7 +97,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 		// set message data
 		task.setTaskId(taskId);
-		task.setTaskName(taskId);
+		task.setTaskName(doc.getString("name"));
 		task.setCfgStart(doc.getString("target"));
 		task.setCfgGoal(doc.getString("goal"));
 		task.setTaskDescription(doc.getString("description"));
@@ -118,7 +118,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		// check the next 2 nodes on the component (if any)
 		ExecutionNode next = cmd.getNode().getNext();
 		int counter = 0;
-		while (next != null && counter < 2) { //&& !this.proxy.isPlatformCommand(next)) {
+		while (next != null && counter < 2) {
 
 			this.log.info("Next Predicate on the timeline \"" + next.getPredicate().getGroundSignature() + "\"");
 			// check if a command has been found
@@ -162,7 +162,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 				// set message data
 				task.setTaskId(taskId);
-				task.setTaskName(taskId);
+				task.setTaskName(doc.getString("name"));
 				task.setCfgStart(doc.getString("target"));
 				task.setCfgGoal(doc.getString("goal"));
 				task.setTaskDescription(doc.getString("description"));
