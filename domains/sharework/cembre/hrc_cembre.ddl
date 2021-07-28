@@ -34,62 +34,62 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			_MoveLockingBracket();
 		}
 
-		VALUE _MoveLockingBracket() [7, 15]
+		VALUE _MoveLockingBracket() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _StoreCompletePiece() [10, 14]
+		VALUE _StoreCompletePiece() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _SizeButtonHolesCheck() [8, 14]
+		VALUE _SizeButtonHolesCheck() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _Unscrew1() [2, 8]
+		VALUE _Unscrew1() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _SmoothCheck() [9, 15]
+		VALUE _SmoothCheck() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _WithdrawCompletePiece() [7, 15]
+		VALUE _WithdrawCompletePiece() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _HolesDimaeterCheck() [7, 13]
+		VALUE _HolesDimaeterCheck() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _CleanSurface() [4, 10]
+		VALUE _CleanSurface() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _LocationHolesCheck() [4, 10]
+		VALUE _LocationHolesCheck() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _InitialCheck() [6, 16]
+		VALUE _InitialCheck() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _Screw() [8, 14]
+		VALUE _Screw() [1, 20]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _MoveLockingBracket() [4, 10]
+		VALUE _MoveLockingBracket() [1, 20]
 		MEETS {
 			Idle();
 		}
@@ -104,12 +104,12 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			_PlaceBlank();
 		}
 
-		VALUE _WithdrawBlankPiece() [1, 20]
+		VALUE _WithdrawBlankPiece() [1, 25]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _PlaceBlank() [1, 20]
+		VALUE _PlaceBlank() [1, 25]
 		MEETS {
 			Idle();
 		}
