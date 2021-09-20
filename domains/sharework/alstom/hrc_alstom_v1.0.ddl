@@ -402,9 +402,9 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 	COMPONENT Goal {FLEXIBLE goals(functional)} : GoalVariableType;
 	COMPONENT Worker {FLEXIBLE operations(primitive)} :  WorkerVariableType;
 	COMPONENT Cobot {FLEXIBLE tasks(primitive)} : CobotVariableType;
-	COMPONENT ProductionL0 {FLEXIBLE tasks_l0(primitive)} : ProductionHierarchyL0Type;
-	COMPONENT ProductionL1 {FLEXIBLE tasks_l1(primitive)} : ProductionHierarchyL1Type;
-	COMPONENT ProductionL2 {FLEXIBLE tasks_l2(primitive)} : ProductionHierarchyL2Type;
+	COMPONENT ProductionL0 {FLEXIBLE tasks_l0(functional)} : ProductionHierarchyL0Type;
+	COMPONENT ProductionL1 {FLEXIBLE tasks_l1(functional)} : ProductionHierarchyL1Type;
+	COMPONENT ProductionL2 {FLEXIBLE tasks_l2(functional)} : ProductionHierarchyL2Type;
 
 	SYNCHRONIZE ProductionL2.tasks_l2 {
 
