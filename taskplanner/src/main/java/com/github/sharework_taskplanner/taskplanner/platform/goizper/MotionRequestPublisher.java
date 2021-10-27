@@ -106,7 +106,7 @@ public class MotionRequestPublisher extends RosJavaCommandPublisher<geometry_msg
                 "- ID: " + cmd.getId() + "\n" +
                 "- Name: " + cmd.getName() + "\n" +
                 "- Params: " + Arrays.asList(cmd.getParamValues()).toString() + "\n");
-        
+
         // get generated pose
         return pose;
     }

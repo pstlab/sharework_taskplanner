@@ -118,6 +118,8 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
         // check GOIZPER goal
         if (goal.contains("screw-on-pose")) {
 
+            // add additional facts
+            log.info("Set facts for the GOIZPER scenario");
             // add fact
             task.addFactDescription(new TokenDescription(
                     "CobotMotion",
