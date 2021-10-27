@@ -55,7 +55,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
         // check start bound
         long[] start = new long[] {
                 0,
-                100
+                1000
         };
 
         // check request
@@ -66,7 +66,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
         // check end bound
         long[] end = new long[] {
                 0,
-                100
+                1000
         };
 
         // check request
@@ -77,7 +77,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
         // check duration bound
         long[] duration = new long[] {
                 1,
-                100
+                1000
         };
 
         // check request
@@ -104,6 +104,38 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
                 start,
                 end,
                 duration));
+
+        // add facts
+        task.addFactDescription(new TokenDescription(
+                "Cobot",
+                "Idle",
+                new String[] {},
+                new long[] {0, 0},
+                new long[] {1, 1000},
+                new long[] {1, 1000}));
+
+
+        // check GOIZPER goal
+        if (goal.contains("screw-on-pose")) {
+
+            // add fact
+            task.addFactDescription(new TokenDescription(
+                    "CobotMotion",
+                    "At",
+                    new String[]{"0"},
+                    new long[]{0, 0},
+                    new long[]{1, 1000},
+                    new long[]{1, 1000}));
+
+            // add fact
+            task.addFactDescription(new TokenDescription(
+                    "CobotScrewDriver",
+                    "Idle",
+                    new String[]{},
+                    new long[]{0, 0},
+                    new long[]{1, 1000},
+                    new long[]{1, 1000}));
+        }
 
         // get task request description
         return task;

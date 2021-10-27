@@ -1,15 +1,17 @@
 DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
-	TEMPORAL_MODULE temporal_module = [0, 1000], 100;
+	TEMPORAL_MODULE temporal_module = [0, 10000], 100;
 
 	PAR_TYPE EnumerationParameterType holes = {h1, h2, h3, h4, h5, h6, h7, h8};
+	PAR_TYPE NumericParameterType pose = [0, 10000];
 
-	COMP_TYPE SingletonStateVariable GoalVariableType(table-assembly-goal(), screw-goal(holes), Idle()) {
+	COMP_TYPE SingletonStateVariable GoalVariableType(table-assembly-goal(), screw-goal(holes), screw-on-pose(pose), Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
 			table-assembly-goal();
 			screw-goal(?h);
+			screw-on-pose(?p);
 		}
 
 		VALUE table-assembly-goal() [1, + INF]
@@ -18,6 +20,11 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 		}
 
 		VALUE screw-goal(?h) [1, + INF]
+        MEETS {
+            Idle();
+        }
+
+        VALUE screw-on-pose(?p) [1, +INF]
         MEETS {
             Idle();
         }
@@ -37,25 +44,60 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 		}
 	}
 
-	COMP_TYPE SingletonStateVariable CobotVariableType(_Screw(holes),  Idle()) {
+	COMP_TYPE SingletonStateVariable CobotVariableType(ScrewOnPose(pose),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			_Screw(?h1);
+			ScrewOnPose(?goal);
 		}
 
-		VALUE _Screw(?h) [1, 25]
+		VALUE ScrewOnPose(?goal) [1, +INF]
 		MEETS {
-			Idle();
+		    Idle();
 		}
 	}
 
-	COMP_TYPE SingletonStateVariable ProductionHierarchyL0Type(doAutonomousScrew(holes), doRotaryTable(),  Idle()) {
+	COMP_TYPE SingletonStateVariable CobotMotionType(At(pose), _MoveToPose(pose)) {
+
+	    VALUE At(?p) [1, +INF]
+	    MEETS {
+	        _MoveToPose(?goal);
+	    }
+
+	    VALUE _MoveToPose(?goal) [1, 100]
+	    MEETS {
+	        At(?pose);
+	        ?pose = ?goal;
+	    }
+
+	}
+
+	COMP_TYPE SingletonStateVariable CobotScrewDriverType(Idle(), _Screw(), _Unscrew()) {
+
+        VALUE Idle() [1, +INF]
+        MEETS {
+            _Screw();
+            _Unscrew();
+        }
+
+        VALUE _Screw() [1, 100]
+        MEETS {
+            Idle();
+        }
+
+        VALUE _Unscrew() [1, 100]
+        MEETS {
+            Idle();
+        }
+	}
+
+	COMP_TYPE SingletonStateVariable ProductionHierarchyL0Type(doAutonomousScrew(holes), doScrewOnPose(pose), doRotaryTable(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
 			doRotaryTable();
 			doAutonomousScrew(?h);
+			doScrewOnPose(?p);
 		}
 
 		VALUE doAutonomousScrew(?h) [1, + INF]
@@ -66,6 +108,11 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 		VALUE doRotaryTable() [1, + INF]
 		MEETS {
 			Idle();
+		}
+
+		VALUE doScrewOnPose(?p) [1, +INF]
+		MEETS {
+		    Idle();
 		}
 
 	}
@@ -130,6 +177,8 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 	COMPONENT Goal {FLEXIBLE goals(functional)} : GoalVariableType;
 	COMPONENT Worker {FLEXIBLE operations(primitive)} :  WorkerVariableType;
 	COMPONENT Cobot {FLEXIBLE tasks(primitive)} : CobotVariableType;
+	COMPONENT CobotMotion {FLEXIBLE arm(primitive)} : CobotMotionType;
+	COMPONENT CobotScrewDriver {FLEXIBLE tool(primitive)} : CobotScrewDriverType;
 	COMPONENT ProductionL0 {FLEXIBLE tasks_l0(functional)} : ProductionHierarchyL0Type;
 	COMPONENT ProductionL1 {FLEXIBLE tasks_l1(functional)} : ProductionHierarchyL1Type;
 
@@ -163,6 +212,15 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 		    CONTAINS [0, +INF] [0, +INF] d0;
 
 		    ?h0 = ?h;
+		}
+
+		VALUE doScrewOnPose(?goal) {
+
+		    d0 Cobot.tasks.ScrewOnPose(?h0);
+
+            CONTAINS [0, +INF] [0, +INF] d0;
+
+            ?h0 = ?goal;
 		}
 
 	}
@@ -284,6 +342,34 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
             ?h0 = ?h;
 		}
+
+
+		VALUE screw-on-pose(?goal) {
+
+		    d0 ProductionL0.tasks_l0.doScrewOnPose(?h0);
+
+            CONTAINS [0, +INF] [0, +INF] d0;
+
+            ?h0 = ?goal;
+		}
+
+	}
+
+	SYNCHRONIZE Cobot.tasks {
+
+	    VALUE ScrewOnPose(?goal) {
+
+	        cd0 CobotMotion.arm._MoveToPose(?pose);
+	        cd1 CobotScrewDriver.tool._Screw();
+
+	        CONTAINS [0, +INF] [0, +INF] cd0;
+	        CONTAINS [0, +INF] [0, +INF] cd1;
+
+	        cd0 BEFORE [0, +INF] cd1;
+
+	        ?pose = ?goal;
+
+	    }
 
 	}
 

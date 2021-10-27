@@ -40,6 +40,7 @@ dependencies {
   compile 'org.mongodb:mongo-java-driver:[3.12.7,)'
   compile 'com.github.rosjava.roxanne_rosjava:roxanne_rosjava_core:[0.1.0,)'
   compile 'org.ros.rosjava_messages:task_planner_interface_msgs:[0.1.0,)'
+  compile 'org.ros.rosjava_messages:moveit_msgs:[0.0.0,)'
 }
 
 task cleanScripts(dependsOn: 'installDist') {

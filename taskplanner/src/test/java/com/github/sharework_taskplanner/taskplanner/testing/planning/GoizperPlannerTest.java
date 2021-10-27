@@ -45,7 +45,7 @@ public class GoizperPlannerTest extends Planner
 		{
 			// generate DDL and PDL
 			String[] model = new String[] {
-					"domains/sharework/goizper/hrc_goizper_v1.0.ddl",
+					"domains/sharework/goizper/hrc_goizper_v2.0.ddl",
 					"domains/sharework/goizper/hrc_goizper.pdl"
 			};
 			
