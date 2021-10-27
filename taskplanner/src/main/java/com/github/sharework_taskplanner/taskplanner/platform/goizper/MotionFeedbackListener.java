@@ -64,25 +64,31 @@ public class MotionFeedbackListener extends RosJavaFeedbackListener<ExecuteTraje
         // prepare feedback
         PlatformFeedback pFeedback = null;
         // check feedback code
-        if (feedback.getStatus().getStatus() == 3) {
+        if (feedback != null && feedback.getStatus() != null) {
+            if (feedback.getStatus().getStatus() == 3) {
 
-            // successful execution
-            pFeedback = new PlatformFeedback(
-                    feedbackIdCounter.getAndIncrement(),
-                    dispatched,
-                    PlatformFeedbackType.SUCCESS);
+                // successful execution
+                pFeedback = new PlatformFeedback(
+                        feedbackIdCounter.getAndIncrement(),
+                        dispatched,
+                        PlatformFeedbackType.SUCCESS);
 
-        } else {
+                // clear information about dispatched command
+                MotionRequestPublisher.DISPATCHED_MOTION_COMMAND = null;
 
-            // execution failure
-            pFeedback = new PlatformFeedback(
-                    feedbackIdCounter.getAndIncrement(),
-                    dispatched,
-                    PlatformFeedbackType.FAILURE);
+            } else {
+
+                // execution failure
+                pFeedback = new PlatformFeedback(
+                        feedbackIdCounter.getAndIncrement(),
+                        dispatched,
+                        PlatformFeedbackType.FAILURE);
+
+                // clear information about dispatched command
+                MotionRequestPublisher.DISPATCHED_MOTION_COMMAND = null;
+            }
         }
 
-        // clear information about dispatched command
-        MotionRequestPublisher.DISPATCHED_MOTION_COMMAND = null;
         // get platform feedback
         return pFeedback;
     }
