@@ -22,9 +22,6 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class HriMessagePublisher extends RosJavaCommandPublisher<std_msgs.String> {
 
-    public static PlatformCommand DISPATCHED_MOTION_COMMAND = null;
-
-
     /**
      *
      * @param proxy
@@ -57,7 +54,8 @@ public class HriMessagePublisher extends RosJavaCommandPublisher<std_msgs.String
                 "- cmd: " + cmd + "\n");
 
         // create message to publish
-        std_msgs.String msg = node.getTopicMessageFactory().newFromType(std_msgs.String._TYPE);
+        std_msgs.String msg = node.getTopicMessageFactory()
+                .newFromType(std_msgs.String._TYPE);
         // set message data
         msg.setData("terminated");
 
