@@ -89,7 +89,7 @@ public class MotionRequestPublisher extends RosJavaCommandPublisher<geometry_msg
                 // get position point
                 geometry_msgs.Point point = node.getTopicMessageFactory().newFromType(geometry_msgs.Point._TYPE);
                 // get data point
-                Document pData = (Document) doc.get("points");
+                Document pData = (Document) doc.get("point");
                 // set coordinates
                 point.setX(pData.getDouble("x") == null ? pData.getInteger("x") : pData.getDouble("x"));
                 point.setY(pData.getDouble("y") == null ? pData.getInteger("y") : pData.getDouble("y"));
@@ -101,7 +101,7 @@ public class MotionRequestPublisher extends RosJavaCommandPublisher<geometry_msg
                 // get position quaternion
                 geometry_msgs.Quaternion quat = node.getTopicMessageFactory().newFromType(Quaternion._TYPE);
                 // get data quaternion
-                Document pQuat = (Document) doc.get("quaternions");
+                Document pQuat = (Document) doc.get("quaternion");
                 // set orientation
                 quat.setX(pQuat.getDouble("x") == null ? pQuat.getInteger("x") : pQuat.getDouble("x"));
                 quat.setY(pQuat.getDouble("y") == null ? pQuat.getInteger("y") : pQuat.getDouble("y"));
