@@ -1,12 +1,11 @@
-package com.github.sharework_taskplanner.taskplanner.testing.planning;
+package com.github.sharework_taskplanner.taskplanner.testing.planning.cybernetics;
 
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
 import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
-import it.cnr.istc.pst.platinum.ai.deliberative.heuristic.pipeline.PipelineFlawSelectionHeuristic;
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
-import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.DepthFirstSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.domain.PlanDataBaseBuilder;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.PlanDataBase;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
@@ -27,64 +26,54 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 		timeout = 300000
 )
 @FlawSelectionHeuristicsConfiguration(
-		heuristics = PipelineFlawSelectionHeuristic.class
+		heuristics = ShareworkFlawSelectionHeuristics.class
 )
-@SearchStrategyConfiguration
-@FrameworkLoggerConfiguration(
-		level = FrameworkLoggingLevel.INFO
+@SearchStrategyConfiguration(
+		strategy = ParetoMHS.class
 )
-public class CembrePlannerTest extends Planner {
+@FrameworkLoggerConfiguration(		
+		level = FrameworkLoggingLevel.OFF
+)
+public class CyberneticsTesting extends Planner {
 
-	protected CembrePlannerTest() {
+	protected CyberneticsTesting() {
 		super();
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) 
-	{ 
-		try 
-		{
-			// generate DDL and PDL
-			String[] model = new String[] {
-					"domains/sharework/cembre/hrc_cembre_v1.1.ddl",
-					"domains/sharework/cembre/hrc_cembre_v1.1.pdl"
-			};
-			
+	public static void main(String[] args) {
+
+		try {
 			
 			// build the plan database
 			PlanDataBase pdb = PlanDataBaseBuilder.createAndSet(
-					model[0], model[1]);
+					"domains/cybernetics/cybernetics_4x4.ddl",
+					"domains/cybernetics/cybernetics.pdl");
 			
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
-					CembrePlannerTest.class, pdb);
+					CyberneticsTesting.class,
+					pdb);
 
 			// start planning
 			SolutionPlan plan = planner.plan();
-
-			planner.display();
-
-
 			// solution found
 			System.out.println("----------------------------------\n"
 					+ "Solution found after " + plan.getSolvingTime() + " msecs\n"
 					+ "Solution plan:\n"
 					+ "" + plan + "\n"
 					+ "----------------------------------\n");
-		}
-		catch (NoSolutionFoundException ex) {
+
+		} catch (NoSolutionFoundException ex) {
 			// no solution found
 			System.err.println(ex.getMessage());
-		}
-		catch (ProblemInitializationException ex) {
+		} catch (ProblemInitializationException ex) {
 			System.err.println(ex.getMessage());
 			ex.printStackTrace(System.err);
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 			ex.printStackTrace(System.err);
 		}
