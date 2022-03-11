@@ -8,9 +8,9 @@ PROBLEM AUTHORING_CEMBRE_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN) {
     f4 <fact> Position3.p3.Free() AT [0, 0] [0, +INF] [1, +INF];
     f5 <fact> Position4.p4.Free() AT [0, 0] [0, +INF] [1, +INF];
 
-    g0 <!,goal> Goal.goals.DoProcess() AT [0, +INF] [0, +INF] [1, +INF];
+    g0 <goal> Goal.goals.goal() AT [0, +INF] [0, +INF] [1, +INF];
 
-    g1 <!,goal> Goal.goals.DoProcess() AT [0, +INF] [0, +INF] [1, +INF];
+    g1 <goal> Goal.goals.goal() AT [0, +INF] [0, +INF] [1, +INF];
 
-    g2 <!,goal> Goal.goals.DoProcess() AT [0, +INF] [0, +INF] [1, +INF];
+    g2 <goal> Goal.goals.goal() AT [0, +INF] [0, +INF] [1, +INF];
 }

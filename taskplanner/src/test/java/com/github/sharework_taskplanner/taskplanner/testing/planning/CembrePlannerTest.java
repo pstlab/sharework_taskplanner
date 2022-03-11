@@ -6,7 +6,7 @@ import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
 import it.cnr.istc.pst.platinum.ai.deliberative.heuristic.pipeline.PipelineFlawSelectionHeuristic;
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
-import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.MakespanGreedyDepthSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.domain.PlanDataBaseBuilder;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.PlanDataBase;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
@@ -29,7 +29,9 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 @FlawSelectionHeuristicsConfiguration(
 		heuristics = PipelineFlawSelectionHeuristic.class
 )
-@SearchStrategyConfiguration
+@SearchStrategyConfiguration(
+		strategy = MakespanGreedyDepthSearchStrategy.class
+)
 @FrameworkLoggerConfiguration(
 		level = FrameworkLoggingLevel.INFO
 )
@@ -50,8 +52,8 @@ public class CembrePlannerTest extends Planner {
 		{
 			// generate DDL and PDL
 			String[] model = new String[] {
-					"domains/sharework/cembre/hrc_cembre_v1.1.ddl",
-					"domains/sharework/cembre/hrc_cembre_v1.1.pdl"
+					"domains/sharework/cembre/hrc_cembre_v1.2.ddl",
+					"domains/sharework/cembre/hrc_cembre_v1.2.pdl"
 			};
 			
 			
