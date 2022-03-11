@@ -1,0 +1,12 @@
+PROBLEM CYBERNETICS_PROBLEM (DOMAIN CYBERNETICS_2x2) {
+
+	f0 <fact> Goal.hrc.Idle() AT [0, 0] [1, +INF] [1, +INF];
+	f1 <fact> Mosaic.tasks.Idle() AT [0, 0] [1, +INF] [1, +INF];
+	f2 <fact> Assembly.coordination.Idle() AT [0, 0] [1, +INF] [1, +INF];
+	f3 <fact> Human.operations.Idle() AT [0, 0] [1, +INF] [1, +INF];
+	f4 <fact> Robot.commands.Idle() AT [0, 0] [1, +INF] [1, +INF];
+	//f5 <fact> BlueBoxArea.state.Free() AT [0, 0] [1, +INF] [1, +INF];
+
+
+	g0 <goal> Goal.hrc.DoMosaic() AT [0, +INF] [0, +INF] [0, +INF];
+}

@@ -16,8 +16,8 @@ import roxanne_rosjava_msgs.ActingConfigurationServiceResponse;
 /**
  *
  */
-public class ActingNode extends AbstractNodeMain
-{
+public class ActingNode extends AbstractNodeMain {
+
     private GoalOrientedActingAgent agent;
 
     private Log log;
@@ -43,7 +43,8 @@ public class ActingNode extends AbstractNodeMain
         return GraphName.of(this.nodeName);
     }
 
-    /**     *
+    /**
+     *
      * @param connectedNode
      */
     @Override

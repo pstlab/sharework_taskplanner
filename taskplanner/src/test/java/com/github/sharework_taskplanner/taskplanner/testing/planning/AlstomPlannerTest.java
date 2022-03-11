@@ -1,12 +1,8 @@
 package com.github.sharework_taskplanner.taskplanner.testing.planning;
 
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
-import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
-import it.cnr.istc.pst.platinum.ai.deliberative.heuristic.pipeline.PipelineFlawSelectionHeuristic;
-import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
-import it.cnr.istc.pst.platinum.ai.deliberative.strategy.MakespanGreedyDepthSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.domain.PlanDataBaseBuilder;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.PlanDataBase;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
@@ -23,21 +19,18 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
  *
  */
 @PlannerSolverConfiguration(
-		solver = PseudoControllabilityAwareSolver.class,
 		timeout = 300000
 )
 @FlawSelectionHeuristicsConfiguration(
-		heuristics = PipelineFlawSelectionHeuristic.class
+		heuristics = ShareworkFlawSelectionHeuristics.class
 )
-@SearchStrategyConfiguration(
-		strategy = MakespanGreedyDepthSearchStrategy.class
-)
-@FrameworkLoggerConfiguration(
+@SearchStrategyConfiguration
+@FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.INFO
 )
-public class CembrePlannerTest extends Planner {
-
-	protected CembrePlannerTest() {
+public class AlstomPlannerTest extends Planner
+{
+	protected AlstomPlannerTest() {
 		super();
 	}
 	
@@ -52,8 +45,8 @@ public class CembrePlannerTest extends Planner {
 		{
 			// generate DDL and PDL
 			String[] model = new String[] {
-					"domains/sharework/cembre/hrc_cembre_v1.2.ddl",
-					"domains/sharework/cembre/hrc_cembre_v1.2.pdl"
+					"domains/sharework/alstom/hrc_alstom_v1.0.ddl",
+					"domains/sharework/alstom/hrc_alstom.pdl"
 			};
 			
 			
@@ -63,14 +56,10 @@ public class CembrePlannerTest extends Planner {
 			
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
-					CembrePlannerTest.class, pdb);
+					AlstomPlannerTest.class, pdb);
 
 			// start planning
 			SolutionPlan plan = planner.plan();
-
-			planner.display();
-
-
 			// solution found
 			System.out.println("----------------------------------\n"
 					+ "Solution found after " + plan.getSolvingTime() + " msecs\n"

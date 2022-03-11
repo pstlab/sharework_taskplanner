@@ -112,8 +112,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				"- cmd= " + cmd + "\n" +
 				"- taskId= " + task.getTaskId() + "\n" +
 				"- taskName= " + task.getTaskName() + "\n" +
-				"- taskDescription= " + task.getTaskDescription() + "\n" +
-				"- taskGoal= " + task.getCfgGoal() + "\n");
+				"- taskDescription= " + task.getTaskDescription() + "\n");
 
 		// check the next 2 nodes on the component (if any)
 		ExecutionNode next = cmd.getNode().getNext();
@@ -166,7 +165,7 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				//task.setCfgStart(doc.getString("target"));
 				//task.setCfgGoal(doc.getString("goal"));
 				task.setTaskDescription(doc.getString("description"));
-				task.setRiskLevel(0.0);
+				//task.setRiskLevel(0.0);
 				// get average expected time
 				task.setExpectedTime(next.getInterval().getDurationUpperBound() - next.getInterval().getDurationUpperBound() / 2);
 				task.setHumanTasks(new ArrayList<String>());

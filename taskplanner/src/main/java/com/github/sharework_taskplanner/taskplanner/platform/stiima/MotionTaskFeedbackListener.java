@@ -18,9 +18,9 @@ public class MotionTaskFeedbackListener extends RosJavaFeedbackListener<task_pla
 
 	private static final PlatformFeedbackType[] RESULT = new PlatformFeedbackType[] {
 
-			PlatformFeedbackType.FAILURE,			// index 0 -> execution failure
+			PlatformFeedbackType.FAILURE,			// index 0 -> failure
 
-			PlatformFeedbackType.SUCCESS,			// index 1 -> successful execution
+			PlatformFeedbackType.SUCCESS,			// index 1 -> success
 	};
 
 	/**

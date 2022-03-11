@@ -394,17 +394,17 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		VALUE DoMosaic()
 		{
 			r1  Mosaic.tasks.DoRow1();
-//			r2  Mosaic.tasks.DoRow2();
-//			r3  Mosaic.tasks.DoRow3();
-//			r4  Mosaic.tasks.DoRow4();
-//			r5  Mosaic.tasks.DoRow5();
-			
-//			CONTAINS [0, +INF] [0, +INF] r1;
-//			CONTAINS [0, +INF] [0, +INF] r2;
-//			CONTAINS [0, +INF] [0, +INF] r3;
-//			CONTAINS [0, +INF] [0, +INF] r4;
-//			CONTAINS [0, +INF] [0, +INF] r5;
-//			
+			r2  Mosaic.tasks.DoRow2();
+			r3  Mosaic.tasks.DoRow3();
+			r4  Mosaic.tasks.DoRow4();
+			r5  Mosaic.tasks.DoRow5();
+
+			CONTAINS [0, +INF] [0, +INF] r1;
+			CONTAINS [0, +INF] [0, +INF] r2;
+			CONTAINS [0, +INF] [0, +INF] r3;
+			CONTAINS [0, +INF] [0, +INF] r4;
+			CONTAINS [0, +INF] [0, +INF] r5;
+
 //			r1 BEFORE [0, +INF] r3;
 //			r1 BEFORE [0, +INF] r4;
 //			r2 BEFORE [0, +INF] r4;

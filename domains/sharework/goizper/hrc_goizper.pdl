@@ -1,0 +1,14 @@
+PROBLEM AUTHORING_GOIZPER_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN)
+{
+    f0 <fact> Cobot.tasks.Idle() AT [0, 0] [0, +INF] [1, +INF];
+    f1 <fact> CobotMotion.arm.At(?pose0) AT [0, 0] [0, +INF] [1, +INF];
+    f2 <fact> CobotScrewDriver.tool.Idle() AT [0, 0] [0, +INF] [1, +INF];
+
+    h0 <fact> Worker.operations.Idle() AT [0, 0] [0, +INF] [1, +INF];
+
+    g0 <goal> Goal.goals.screw-on-pose(?goal) AT [0, +INF] [0, +INF] [1, +INF];
+
+
+    ?pose0 = 0;
+    ?goal = 112;
+}

@@ -19,7 +19,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 )
 @SearchStrategyConfiguration
 @FrameworkLoggerConfiguration(		
-		level = FrameworkLoggingLevel.OFF
+		level = FrameworkLoggingLevel.INFO
 )
 public class ShareworkPlanner extends Planner {
 

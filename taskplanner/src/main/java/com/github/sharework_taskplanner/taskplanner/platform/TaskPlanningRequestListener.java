@@ -26,7 +26,7 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
      *
      * @return
      */
-   // @Override
+    @Override
     public String getMessageType() {
         return task_planner_interface_msgs.TaskPlanningRequest._TYPE;
     }
@@ -52,48 +52,12 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
                     "No goal has been specified");
         }
 
-        // check start bound
-        long[] start = new long[] {
-                0,
-                100
-        };
-
-        // check request
-        if (msg.getStart() != null && msg.getStart().length >= 2) {
-            start = msg.getStart();
-        }
-
-        // check end bound
-        long[] end = new long[] {
-                0,
-                100
-        };
-
-        // check request
-        if (msg.getEnd() != null && msg.getEnd().length >= 2) {
-            end = msg.getEnd();
-        }
-
-        // check duration bound
-        long[] duration = new long[] {
-                1,
-                100
-        };
-
-        // check request
-        if (msg.getDuration() != null && msg.getDuration().length >= 2) {
-            duration = msg.getDuration();
-        }
-
         String[] parameters = new String[] {};
         if (msg.getParameters() != null && msg.getParameters().size() > 0) {
             // get array of parameters
             parameters = msg.getParameters().toArray(new String[msg.getParameters().size()]);
         }
 
-
-        // received input goal
-        log.info("Received a task to plan for: \"" + msg + "\"\n");
         // prepare a task description
         AgentTaskDescription task = new AgentTaskDescription(taskCounter.getAndIncrement());
         // add goal description
@@ -101,9 +65,52 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
                 component,
                 goal,
                 parameters,
-                start,
-                end,
-                duration));
+                new long[] {            // start
+                        0,
+                        1000
+                },
+                new long[] {            // end
+                        0,
+                        1000
+                },
+                new long[] {            // duration
+                        1,
+                        1000
+                }));
+
+        // add facts
+        task.addFactDescription(new TokenDescription(
+                "Cobot",
+                "Idle",
+                new String[] {},
+                new long[] {0, 0},
+                new long[] {1, 1000},
+                new long[] {1, 1000}));
+
+
+        // check GOIZPER goal
+        if (goal.contains("screw-on-pose")) {
+
+            // add additional facts
+            log.info("Set facts for the GOIZPER scenario");
+            // add fact
+            task.addFactDescription(new TokenDescription(
+                    "CobotMotion",
+                    "At",
+                    new String[]{"0"},
+                    new long[]{0, 0},
+                    new long[]{1, 1000},
+                    new long[]{1, 1000}));
+
+            // add fact
+            task.addFactDescription(new TokenDescription(
+                    "CobotScrewDriver",
+                    "Idle",
+                    new String[]{},
+                    new long[]{0, 0},
+                    new long[]{1, 1000},
+                    new long[]{1, 1000}));
+        }
 
         // get task request description
         return task;
