@@ -16,11 +16,11 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 	}
 
-	COMP_TYPE SingletonStateVariable WorkerVariableType(_MoveLockingBracket(), _StoreCompletePiece(), _SizeButtonHolesCheck(), _Unscrew1(), _SmoothCheck(), _WithdrawCompletePiece(), _HolesDimaeterCheck(), _CleanSurface(), _LocationHolesCheck(), _InitialCheck(), _Screw(), _MoveLockingBracket(),  Idle()) {
+	COMP_TYPE SingletonStateVariable WorkerVariableType(_CloseLockingBracket(), _StoreCompletePiece(), _SizeButtonHolesCheck(), _Unscrew1(), _SmoothCheck(), _WithdrawCompletePiece(), _HolesDimaeterCheck(), _CleanSurface(), _LocationHolesCheck(), _InitialCheck(), _Screw(), _OpenLockingBracket(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			_MoveLockingBracket();
+			_CloseLockingBracket();
 			_StoreCompletePiece();
 			_SizeButtonHolesCheck();
 			_Unscrew1();
@@ -31,65 +31,65 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 			_LocationHolesCheck();
 			_InitialCheck();
 			_Screw();
-			_MoveLockingBracket();
+			_OpenLockingBracket();
 		}
 
-		VALUE _MoveLockingBracket() [1, 20]
+		VALUE _CloseLockingBracket() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _StoreCompletePiece() [1, 20]
+		VALUE _StoreCompletePiece() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _SizeButtonHolesCheck() [1, 20]
+		VALUE _SizeButtonHolesCheck() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _Unscrew1() [1, 20]
+		VALUE _Unscrew1() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _SmoothCheck() [1, 20]
+		VALUE _SmoothCheck() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _WithdrawCompletePiece() [1, 20]
+		VALUE _WithdrawCompletePiece() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _HolesDimaeterCheck() [1, 20]
+		VALUE _HolesDimaeterCheck() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _CleanSurface() [1, 20]
+		VALUE _CleanSurface() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _LocationHolesCheck() [1, 20]
+		VALUE _LocationHolesCheck() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _InitialCheck() [1, 20]
+		VALUE _InitialCheck() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _Screw() [1, 20]
+		VALUE _Screw() [1, 60]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _MoveLockingBracket() [1, 20]
+		VALUE _OpenLockingBracket() [1, 60]
 		MEETS {
 			Idle();
 		}
@@ -286,7 +286,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
             d11 BEFORE [0, +INF] d3;
             d3 BEFORE [0, +INF] d1;
             d0 BEFORE [0, +INF] d1;
-            d1 BEFORE [0, +inf] d10;
+            d1 BEFORE [0, +INF] d10;
             d10 BEFORE [0, +INF] d13;
 		}
 
@@ -320,7 +320,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doTask6() {
 
-			d0 Worker.operations._MoveLockingBracket();
+			d0 Worker.operations._OpenLockingBracket();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -368,7 +368,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE doTask12() {
 
-			d0 Worker.operations._MoveLockingBracket();
+			d0 Worker.operations._CloseLockingBracket();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
