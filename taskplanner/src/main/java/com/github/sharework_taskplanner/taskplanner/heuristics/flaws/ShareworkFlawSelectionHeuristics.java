@@ -4,10 +4,7 @@ import it.cnr.istc.pst.platinum.ai.deliberative.heuristic.pipeline.PipelineFlawS
 import it.cnr.istc.pst.platinum.ai.deliberative.heuristic.pipeline.ReverseHierarchyFlawInspector;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.deliberative.PipelineConfiguration;
 
-
 /**
- * 
- * @author alessandroumbrico
  *
  */
 @PipelineConfiguration(pipeline= {

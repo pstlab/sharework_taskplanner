@@ -9,6 +9,6 @@ PROBLEM AUTHORING_CEMBRE_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN) {
     f5 <fact> Position3.p3.Free() AT [0, 0] [0, +INF] [1, +INF];
 
     g0 <goal> Goal.goals.goal_1122() AT [0, +INF] [0, +INF] [1, +INF];
-    //g1 <goal> Goal.goals.goal_0218() AT [0, +INF] [0, +INF] [1, +INF];
+    g1 <goal> Goal.goals.goal_0218() AT [0, +INF] [0, +INF] [1, +INF];
 
 }

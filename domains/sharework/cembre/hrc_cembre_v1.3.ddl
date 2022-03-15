@@ -74,208 +74,208 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 	}
 
-	COMP_TYPE SingletonStateVariable WorkerVariableType(_pickplace-p1-p3-0218(), _mount-p3-human(), _pickplace-p3-p4-human(), _pickplace-p3-rbox-human(), _pickplace-p2-p4-0218(), _pickplace-pbox-p3-0218(), _pickplace-pbox-p2-0218(), _unmount-p2-0218(), _unmount-p3-0218(), _pickplace-p3-rbox-0218(), _mount-p2-0218(), _pickplace-p1-p3-human(), _pickplace-p1-p2-0218(), _pickplace-p2-p4-human(), _pickplace-p2-rbox-human(), _pickplace-p3-p4-0218(), _pickplace-p2-rbox-0218(), _unmount-p3-human(), _mount-p2-human(), _mount-p3-0218(), _pickplace-p1-p2(), _pickplace-pbox-p3(), _unmount-p2-human(), _pickplace-pbox-p2-human(),  Idle()) {
+	COMP_TYPE SingletonStateVariable WorkerVariableType(_pickplace-p0-p2-0218(), _mount-p2-human(), _pickplace-p2-p3-human(), _pickplace-p2-rbox-human(), _pickplace-p1-p3-0218(), _pickplace-pbox-p2-0218(), _pickplace-pbox-p1-0218(), _unmount-p1-0218(), _unmount-p2-0218(), _pickplace-p2-rbox-0218(), _mount-p1-0218(), _pickplace-p0-p2-human(), _pickplace-p0-p1-0218(), _pickplace-p1-p3-human(), _pickplace-p1-rbox-human(), _pickplace-p2-p3-0218(), _pickplace-p1-rbox-0218(), _unmount-p2-human(), _mount-p1-human(), _mount-p2-0218(), _pickplace-p0-p1(), _pickplace-pbox-p2(), _unmount-p1-human(), _pickplace-pbox-p1-human(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			_pickplace-p1-p3-0218();
-			_mount-p3-human();
-			_pickplace-p3-p4-human();
-			_pickplace-p3-rbox-human();
-			_pickplace-p2-p4-0218();
-			_pickplace-pbox-p3-0218();
-			_pickplace-pbox-p2-0218();
-			_unmount-p2-0218();
-			_unmount-p3-0218();
-			_pickplace-p3-rbox-0218();
-			_mount-p2-0218();
-			_pickplace-p1-p3-human();
-			_pickplace-p1-p2-0218();
-			_pickplace-p2-p4-human();
-			_pickplace-p2-rbox-human();
-			_pickplace-p3-p4-0218();
-			_pickplace-p2-rbox-0218();
-			_unmount-p3-human();
+			_pickplace-p0-p2-0218();
 			_mount-p2-human();
-			_mount-p3-0218();
-			_pickplace-p1-p2();
-			_pickplace-pbox-p3();
+			_pickplace-p2-p3-human();
+			_pickplace-p2-rbox-human();
+			_pickplace-p1-p3-0218();
+			_pickplace-pbox-p2-0218();
+			_pickplace-pbox-p1-0218();
+			_unmount-p1-0218();
+			_unmount-p2-0218();
+			_pickplace-p2-rbox-0218();
+			_mount-p1-0218();
+			_pickplace-p0-p2-human();
+			_pickplace-p0-p1-0218();
+			_pickplace-p1-p3-human();
+			_pickplace-p1-rbox-human();
+			_pickplace-p2-p3-0218();
+			_pickplace-p1-rbox-0218();
 			_unmount-p2-human();
-			_pickplace-pbox-p2-human();
+			_mount-p1-human();
+			_mount-p2-0218();
+			_pickplace-p0-p1();
+			_pickplace-pbox-p2();
+			_unmount-p1-human();
+			_pickplace-pbox-p1-human();
 		}
 
-		VALUE _pickplace-p1-p3-0218() [1, 1000]
+		VALUE _pickplace-p0-p2-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _mount-p3-human() [13, 33]
+		VALUE _mount-p2-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p3-p4-human() [1, 9]
+		VALUE _pickplace-p2-p3-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p3-rbox-human() [1, 9]
+		VALUE _pickplace-p2-rbox-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p2-p4-0218() [1, 1000]
+		VALUE _pickplace-p1-p3-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p3-0218() [1, 9]
+		VALUE _pickplace-pbox-p2-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p2-0218() [1, 9]
+		VALUE _pickplace-pbox-p1-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _unmount-p2-0218() [1, 123]
+		VALUE _unmount-p1-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _unmount-p3-0218() [1, 115]
+		VALUE _unmount-p2-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p3-rbox-0218() [1, 115]
+		VALUE _pickplace-p2-rbox-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _mount-p2-0218() [1, 9]
+		VALUE _mount-p1-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p1-p3-human() [1, 9]
+		VALUE _pickplace-p0-p2-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p1-p2-0218() [1, 1000]
+		VALUE _pickplace-p0-p1-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p2-p4-human() [1, 9]
+		VALUE _pickplace-p1-p3-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p2-rbox-human() [1, 9]
+		VALUE _pickplace-p1-rbox-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p3-p4-0218() [1, 1000]
+		VALUE _pickplace-p2-p3-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p2-rbox-0218() [1, 112]
+		VALUE _pickplace-p1-rbox-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _unmount-p3-human() [16, 40]
+		VALUE _unmount-p2-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _mount-p2-human() [5, 25]
+		VALUE _mount-p1-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _mount-p3-0218() [1, 9]
+		VALUE _mount-p2-0218() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p1-p2() [1, 9]
+		VALUE _pickplace-p0-p1() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p3() [1, 9]
+		VALUE _pickplace-pbox-p2() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _unmount-p2-human() [5, 25]
+		VALUE _unmount-p1-human() [1, 10]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p2-human() [1, 9]
+		VALUE _pickplace-pbox-p1-human() [1, 35]
 		MEETS {
 			Idle();
 		}
 
 	}
 
-	COMP_TYPE SingletonStateVariable CobotVariableType(_unmount-p2-robot(), _pickplace-pbox-p2-robot(), _pickplace-p2-rbox-robot(), _monut-p2-robot(), _pickplace-p3-rbox-robot(), _pickplace-pbox-p3-robot(), _mount-p3-robot(), _unmount-p3-robot(),  Idle()) {
+	COMP_TYPE SingletonStateVariable CobotVariableType(_unmount-p1-robot(), _pickplace-pbox-p1-robot(), _pickplace-p1-rbox-robot(), _monut-p1-robot(), _pickplace-p2-rbox-robot(), _pickplace-pbox-p2-robot(), _mount-p2-robot(), _unmount-p2-robot(),  Idle()) {
 
 		VALUE Idle() [1, +INF]
 		MEETS {
-			_unmount-p2-robot();
-			_pickplace-pbox-p2-robot();
+			_unmount-p1-robot();
+			_pickplace-pbox-p1-robot();
+			_pickplace-p1-rbox-robot();
+			_monut-p1-robot();
 			_pickplace-p2-rbox-robot();
-			_monut-p2-robot();
-			_pickplace-p3-rbox-robot();
-			_pickplace-pbox-p3-robot();
-			_mount-p3-robot();
-			_unmount-p3-robot();
+			_pickplace-pbox-p2-robot();
+			_mount-p2-robot();
+			_unmount-p2-robot();
 		}
 
-		VALUE _unmount-p2-robot() [18, 28]
+		VALUE _unmount-p1-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p2-robot() [15, 21]
+		VALUE _pickplace-pbox-p1-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p2-rbox-robot() [8, 12]
+		VALUE _pickplace-p1-rbox-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _monut-p2-robot() [20, 26]
+		VALUE _monut-p1-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-p3-rbox-robot() [15, 21]
+		VALUE _pickplace-p2-rbox-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _pickplace-pbox-p3-robot() [15, 21]
+		VALUE _pickplace-pbox-p2-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _mount-p3-robot() [15, 21]
+		VALUE _mount-p2-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
 
-		VALUE _unmount-p3-robot() [20, 26]
+		VALUE _unmount-p2-robot() [1, 35]
 		MEETS {
 			Idle();
 		}
@@ -550,43 +550,43 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_mount_p2_robot() {
 
-			d0 Cobot.tasks._monut-p2-robot();
+			d0 Cobot.tasks._monut-p1-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_unmount_p3_robot() {
 
-			d0 Cobot.tasks._unmount-p3-robot();
+			d0 Cobot.tasks._unmount-p2-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_mount_p3_robot() {
 
-			d0 Cobot.tasks._mount-p3-robot();
+			d0 Cobot.tasks._mount-p2-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_release_p3_robot() {
 
-			d0 Cobot.tasks._pickplace-p3-rbox-robot();
+			d0 Cobot.tasks._pickplace-p2-rbox-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_release_p2_robot() {
 
-			d0 Cobot.tasks._pickplace-p2-rbox-robot();
+			d0 Cobot.tasks._pickplace-p1-rbox-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_unmount_p2_robot() {
 
-			d0 Cobot.tasks._unmount-p2-robot();
+			d0 Cobot.tasks._unmount-p1-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_pick_p3_robot() {
 
-			d0 Cobot.tasks._pickplace-pbox-p3-robot();
+			d0 Cobot.tasks._pickplace-pbox-p2-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position2.position2_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -594,13 +594,13 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_mount_p2_human() {
 
-			d0 Worker.operations._mount-p2-human();
+			d0 Worker.operations._mount-p1-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_pick_p3_human() {
 
-			d0 Worker.operations._pickplace-pbox-p3();
+			d0 Worker.operations._pickplace-pbox-p2();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position2.position2_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -608,25 +608,25 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_unmount_p2_human() {
 
-			d0 Worker.operations._unmount-p2-human();
+			d0 Worker.operations._unmount-p1-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_release_p2_human() {
 
-			d0 Worker.operations._pickplace-p2-rbox-human();
+			d0 Worker.operations._pickplace-p1-rbox-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_release_p3_human() {
 
-			d0 Worker.operations._pickplace-p3-rbox-human();
+			d0 Worker.operations._pickplace-p2-rbox-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_pick_p2_robot() {
 
-			d0 Cobot.tasks._pickplace-pbox-p2-robot();
+			d0 Cobot.tasks._pickplace-pbox-p1-robot();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position1.position1_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -634,7 +634,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_pick_p2_human() {
 
-			d0 Worker.operations._pickplace-pbox-p2-human();
+			d0 Worker.operations._pickplace-pbox-p1-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position1.position1_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -642,13 +642,13 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_mount_p3_human() {
 
-			d0 Worker.operations._mount-p3-human();
+			d0 Worker.operations._mount-p2-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_unmount_p3_human() {
 
-			d0 Worker.operations._unmount-p3-human();
+			d0 Worker.operations._unmount-p2-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -670,7 +670,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_place_p2() {
 
-			d0 Worker.operations._pickplace-p1-p2();
+			d0 Worker.operations._pickplace-p0-p1();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position1.position1_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -678,7 +678,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_finish_p3() {
 
-			d0 Worker.operations._pickplace-p3-p4-human();
+			d0 Worker.operations._pickplace-p2-p3-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position3.position3_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -770,7 +770,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_place_p3() {
 
-			d0 Worker.operations._pickplace-p1-p3-human();
+			d0 Worker.operations._pickplace-p0-p2-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position2.position2_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -778,7 +778,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_finish_p2() {
 
-			d0 Worker.operations._pickplace-p2-p4-human();
+			d0 Worker.operations._pickplace-p1-p3-human();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position3.position3_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1054,13 +1054,13 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_release_p3_0218() {
 
-			d0 Worker.operations._pickplace-p3-rbox-0218();
+			d0 Worker.operations._pickplace-p2-rbox-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_finish_p3_0218() {
 
-			d0 Worker.operations._pickplace-p3-p4-0218();
+			d0 Worker.operations._pickplace-p2-p3-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position3.position3_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1068,7 +1068,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_pick_p2_0218() {
 
-			d0 Worker.operations._pickplace-pbox-p2-0218();
+			d0 Worker.operations._pickplace-pbox-p1-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position1.position1_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1076,7 +1076,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_place_p2_0218() {
 
-			d0 Worker.operations._pickplace-p1-p2-0218();
+			d0 Worker.operations._pickplace-p0-p1-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position1.position1_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1084,19 +1084,19 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_mount_p2_0218() {
 
-			d0 Worker.operations._mount-p2-0218();
+			d0 Worker.operations._mount-p1-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_unmount_p2_0218() {
 
-			d0 Worker.operations._unmount-p2-0218();
+			d0 Worker.operations._unmount-p1-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_pick_p3_0218() {
 
-			d0 Worker.operations._pickplace-pbox-p3-0218();
+			d0 Worker.operations._pickplace-pbox-p2-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position2.position2_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1104,7 +1104,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_place_p3_0218() {
 
-			d0 Worker.operations._pickplace-p1-p3-0218();
+			d0 Worker.operations._pickplace-p0-p2-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position2.position2_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1112,7 +1112,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_finish_p2_0218() {
 
-			d0 Worker.operations._pickplace-p2-p4-0218();
+			d0 Worker.operations._pickplace-p1-p3-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 Position3.position3_state.Busy();
 			DURING [0, +INF] [0, +INF] d1;
@@ -1120,19 +1120,19 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		VALUE do_unmount_p3_0218() {
 
-			d0 Worker.operations._unmount-p3-0218();
+			d0 Worker.operations._unmount-p2-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_mount_p3_0218() {
 
-			d0 Worker.operations._mount-p3-0218();
+			d0 Worker.operations._mount-p2-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
 		VALUE do_release_p2_0218() {
 
-			d0 Worker.operations._pickplace-p2-rbox-0218();
+			d0 Worker.operations._pickplace-p1-rbox-0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 		}
 
@@ -1229,6 +1229,7 @@ DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN {
 
 		 VALUE do_process_p2_0218() {
 
+			d0 ProductionG1L2.tasks_g1_l2.do_assembly_p2_0218();
 			d0 ProductionG1L2.tasks_g1_l2.do_assembly_p2_0218();
 			CONTAINS [0, +INF] [0, +INF] d0;
 			d1 ProductionG1L2.tasks_g1_l2.do_disassembly_p2_0218();
