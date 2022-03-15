@@ -52,8 +52,8 @@ public class CembrePlannerTest extends Planner {
 		{
 			// generate DDL and PDL
 			String[] model = new String[] {
-					"domains/sharework/cembre/hrc_cembre_v1.2.ddl",
-					"domains/sharework/cembre/hrc_cembre_v1.2.pdl"
+					"domains/sharework/cembre/hrc_cembre_v1.3.ddl",
+					"domains/sharework/cembre/hrc_cembre_v1.3.pdl"
 			};
 			
 			
