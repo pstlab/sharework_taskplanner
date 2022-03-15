@@ -159,8 +159,10 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 					throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
 				}
 
+				// get object ID
+				String objId = doc.getString("target");
 				// set message data
-				task.setTaskId(taskId);
+				task.setTaskId(taskId + "-" + objId);
 				task.setTaskName(doc.getString("name"));
 				//task.setCfgStart(doc.getString("target"));
 				//task.setCfgGoal(doc.getString("goal"));
