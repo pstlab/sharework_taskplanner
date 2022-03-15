@@ -1,0 +1,14 @@
+PROBLEM AUTHORING_CEMBRE_PROB (DOMAIN KNOWLEDGE_PRODUCTION_AUTHORING_GEN) {
+
+    f0 <fact> Worker.operations.Idle() AT [0, 0] [0, +INF] [1, +INF];
+    f1 <fact> Cobot.tasks.Idle() AT [0, 0] [0, +INF] [1, +INF];
+
+    f2 <fact> Position0.p0.Busy() AT [0, 0] [0, +INF] [1, +INF];
+    f3 <fact> Position1.p1.Free() AT [0, 0] [0, +INF] [1, +INF];
+    f4 <fact> Position2.p2.Free() AT [0, 0] [0, +INF] [1, +INF];
+    f5 <fact> Position3.p3.Free() AT [0, 0] [0, +INF] [1, +INF];
+
+    g0 <goal> Goal.goals.goal_1122() AT [0, +INF] [0, +INF] [1, +INF];
+    //g1 <goal> Goal.goals.goal_0218() AT [0, +INF] [0, +INF] [1, +INF];
+
+}
