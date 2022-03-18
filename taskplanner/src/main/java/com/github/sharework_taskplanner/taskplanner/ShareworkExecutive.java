@@ -9,7 +9,7 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.executiv
 import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
 @FrameworkLoggerConfiguration(
-        level = FrameworkLoggingLevel.INFO
+        level = FrameworkLoggingLevel.DEBUG
 )
 @MonitorConfiguration(
         monitor = ConditionCheckingMonitor.class
