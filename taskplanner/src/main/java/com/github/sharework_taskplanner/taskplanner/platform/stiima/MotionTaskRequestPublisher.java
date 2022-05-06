@@ -19,6 +19,7 @@ import org.ros.node.ConnectedNode;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -91,8 +92,33 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 		// retrieve task properties from mongo
 		Document doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
 		if (doc == null) {
-			// throw exception
-			throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+
+			// check command
+			if (taskId.toLowerCase().contains("pickplace")) {
+
+				// prepare task name
+				taskId = cmd.getName().replace("_", "").trim() + "-" + cmd.getParamValues()[1];
+				// check if human or robot pickplace
+				if (this.publisher.getTopicName().toString().contains("motion") ||
+						this.publisher.getTopicName().toString().contains("robot")) {
+					// robot task
+					taskId += "-robot";
+
+				} else {
+					// human task
+					taskId += "-human";
+				}
+
+				this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
+				// retrieve document if any
+				doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
+			}
+
+			// check document
+			if (doc == null) {
+				// throw exception
+				throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+			}
 		}
 
 		// set message data
@@ -155,8 +181,35 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 				// retrieve task properties from mongo
 				doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
 				if (doc == null) {
-					// throw exception
-					throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+
+					// check command
+					if (taskId.toLowerCase().contains("pickplace")) {
+
+						// prepare task name
+						taskId = splits[0] + "-" + splits[2];
+						// check if human or robot pickplace
+						if (this.publisher.getTopicName().toString().contains("motion") ||
+								this.publisher.getTopicName().toString().contains("robot")) {
+
+							// robot task
+							taskId += "-robot";
+
+						} else {
+							// human task
+							taskId += "-human";
+						}
+
+
+						this.log.info("[MotionTaskRequestPublisher] Retrieving information about task \"" + taskId + "\":\n");
+						// retrieve document if any
+						doc = this.collection.find(Filters.eq("name", taskId.toLowerCase())).first();
+					}
+
+					// check document
+					if (doc == null) {
+						// throw exception
+						throw new MessageMarshalingException("Unknown task \"" + taskId + "\" to dispatch");
+					}
 				}
 
 				// get object ID
@@ -192,7 +245,6 @@ public class MotionTaskRequestPublisher extends RosJavaCommandPublisher<task_pla
 
 		// set request tasks
 		request.setTasks(tasks);
-
 		// get the request
 		return request;
 	}

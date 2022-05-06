@@ -7,7 +7,7 @@
 			msg="task_planner_interface_msgs/TaskPlanningRequest"
 			delegate="com.github.sharework_taskplanner.taskplanner.platform.TaskPlanningRequestListener" />
 
-	<command name="*" component="Robot" exclude="idle">
+	<command name="*" component="Cobot" exclude="idle">
 	
 		<dispatch-topic 
 			name="/sharework/actionlib_bridge/lms/robot"
@@ -21,7 +21,7 @@
 			
 	</command>
 	
-	<command name="*" component="Human" exclude="idle">
+	<command name="*" component="Worker" exclude="idle">
 	
 		<dispatch-topic 
 			name="/sharework/actionlib_bridge/lms/human"
