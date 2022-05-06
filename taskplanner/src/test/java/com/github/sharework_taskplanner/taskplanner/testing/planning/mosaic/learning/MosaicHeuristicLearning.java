@@ -47,7 +47,8 @@ public class MosaicHeuristicLearning
 					
 					// set a planning instance of the plan database
 					Planner planner = PlannerBuilder.createAndSet(
-							ShareworkPlanner.class, pdb);
+							ShareworkPlanner.class,
+							pdb);
 		
 					// start planning
 					SolutionPlan plan = planner.plan();

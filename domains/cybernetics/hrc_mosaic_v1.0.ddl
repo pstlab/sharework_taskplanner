@@ -1,4 +1,4 @@
-DOMAIN SHAREWORK_HRC_MOSAIC_V2
+DOMAIN SHAREWORK_HRC_MOSAIC_V1
 {
 	TEMPORAL_MODULE temporal_module = [0, 7000], 100;
 	
@@ -23,27 +23,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 	};
 	
 	PAR_TYPE NumericParameterType risk_levels = [0, 5];
-	
-	
-	COMP_TYPE SingletonStateVariable SharableAreaType(
-		Free(), Cobot(), Worker()) 
-	{
-		VALUE Free() [1, +INF] 
-		MEETS {
-			Cobot();
-			Worker();
-		}
-		
-		VALUE Cobot() [1, +INF]
-		MEETS {
-			Free();
-		}
-		
-		VALUE Worker() [1, +INF]
-		MEETS {
-			Free();
-		}
-	}
 	
 	COMP_TYPE SingletonStateVariable ProcessType (
 		Idle(), DoMosaic())
@@ -105,27 +84,26 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			_PickPlace(?start, ?goal, ?risk);
 		}
 		
-		VALUE _PickPlace(?start, ?goal, ?risk) [1, 120]
+		VALUE _PickPlace(?start, ?goal, ?risk) [3, 5]
 		MEETS {
 			Idle();	
 		}
 	}
 	
 	COMPONENT Goal {FLEXIBLE hrc(functional)} : ProcessType;
-	COMPONENT Mosaic {FLEXIBLE tasks(functional)} : MosaicProcessType;
+	COMPONENT Mosaic {FLEXIBLE tasks(primitive)} : MosaicProcessType;
 	COMPONENT Worker {FLEXIBLE operations(primitive)} : AgentBehaviorType;
 	COMPONENT Cobot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
-	COMPONENT BlueArea {FLEXIBLE shared(primitive)} : SharableAreaType;
 	
 	SYNCHRONIZE Goal.hrc
 	{
 		VALUE DoMosaic()
 		{
-			r1  Mosaic.tasks.DoRow1();
-			r2  Mosaic.tasks.DoRow2();
-			r3  Mosaic.tasks.DoRow3();
-			r4  Mosaic.tasks.DoRow4();
-			r5  Mosaic.tasks.DoRow5();
+			r1 Mosaic.tasks.DoRow1();
+			r2 Mosaic.tasks.DoRow2();
+			r3 Mosaic.tasks.DoRow3();
+			r4 Mosaic.tasks.DoRow4();
+			r5 Mosaic.tasks.DoRow5();
 			
 			CONTAINS [0, +INF] [0, +INF] r1;
 			CONTAINS [0, +INF] [0, +INF] r2;
@@ -209,18 +187,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Start = box_blue;
 			?t10Goal = J1;
 			?t10Level = 3;
-			
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t4 DURING [0, +INF] [0, +INF] r1;
-			t6 DURING [0, +INF] [0, +INF] r1;
-			t7 DURING [0, +INF] [0, +INF] r1;
-			
-			t8 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
 		}
 	
 		// row 1 - 2 Cobot, 3 Worker
@@ -290,16 +256,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Goal = J1;
 			?t10Level = 3;
 			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t4 DURING [0, +INF] [0, +INF] r1;
-			t6 DURING [0, +INF] [0, +INF] r1;
-			
-			t7 DURING [0, +INF] [0, +INF] r2;
-			t8 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
 		}
 		
 		// row 2 - 4 Cobot, 2 Worker
@@ -370,22 +326,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Level = 3;
 			
 			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t2 DURING [0, +INF] [0, +INF] r1;
-			t8 DURING [0, +INF] [0, +INF] r2;
-			
-			t2 BEFORE [0, +INF] t8;
-			t3 BEFORE [0, +INF] t8;
-			t4 BEFORE [0, +INF] t8;
-			t6 BEFORE [0, +INF] t8;
-			
-			t2 BEFORE [0, +INF] t10;
-			t3 BEFORE [0, +INF] t10;
-			t4 BEFORE [0, +INF] t10;
-			t6 BEFORE [0, +INF] t10;
 		}
 	
 		// row 2 - 3 Cobot, 3 Worker
@@ -454,31 +394,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Start = box_blue;
 			?t10Goal = J2;
 			?t10Level = 3;
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t2 DURING [0, +INF] [0, +INF] r1;
-			t3 DURING [0, +INF] [0, +INF] r1;
-			t4 DURING [0, +INF] [0, +INF] r1;
-			
-			t6 DURING [0, +INF] [0, +INF] r2;
-			t8 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			t2 BEFORE [0, +INF] t6;
-			t3 BEFORE [0, +INF] t6;
-			t4 BEFORE [0, +INF] t6;
-			
-			
-			t2 BEFORE [0, +INF] t8;
-			t3 BEFORE [0, +INF] t8;
-			t4 BEFORE [0, +INF] t8;
-			
-			t2 BEFORE [0, +INF] t10;
-			t3 BEFORE [0, +INF] t10;
-			t4 BEFORE [0, +INF] t10;
 		}
 		
 		// row 2 - 2 Cobot, 4 Worker
@@ -547,32 +462,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Start = box_blue;
 			?t10Goal = J2;
 			?t10Level = 3;
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t2 DURING [0, +INF] [0, +INF] r1;
-			t3 DURING [0, +INF] [0, +INF] r1;
-			
-			t4 DURING [0, +INF] [0, +INF] r2;
-			t6 DURING [0, +INF] [0, +INF] r2;
-			t8 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			
-			t2 BEFORE [0, +INF] t4;
-			t3 BEFORE [0, +INF] t4;
-			
-			t2 BEFORE [0, +INF] t6;
-			t3 BEFORE [0, +INF] t6;
-			
-			t2 BEFORE [0, +INF] t8;
-			t3 BEFORE [0, +INF] t8;
-			
-			
-			t2 BEFORE [0, +INF] t10;
-			t3 BEFORE [0, +INF] t10;
 		}
 		
 		// row 3 - 2 Cobot, 2 Worker
@@ -641,23 +530,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Start = box_blue;
 			?t10Goal = J3;
 			?t10Level = 3;
-			
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t4 DURING [0, +INF] [0, +INF] r1;
-			t6 DURING [0, +INF] [0, +INF] r1;
-			
-			t8 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			t4 BEFORE [0, +INF] t8;
-			t6 BEFORE [0, +INF] t8;
-			
-			t4 BEFORE [0, +INF] t10;
-			t6 BEFORE [0, +INF] t10;
 		}
 		
 		// row 4 - 3 Cobot, 4 Worker
@@ -671,7 +543,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
 			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
 			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);		// I1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
 			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
@@ -726,36 +598,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Start = box_blue;
 			?t10Goal = J4;
 			?t10Level = 3;
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t1 DURING [0, +INF] [0, +INF] r1;
-			t2 DURING [0, +INF] [0, +INF] r1;
-			t4 DURING [0, +INF] [0, +INF] r1;
-			
-			t5 DURING [0, +INF] [0, +INF] r2;
-			t7 DURING [0, +INF] [0, +INF] r2;
-			t9 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			
-			t1 BEFORE [0, +INF] t5;
-			t2 BEFORE [0, +INF] t5;
-			t4 BEFORE [0, +INF] t5;
-			
-			t1 BEFORE [0, +INF] t7;
-			t2 BEFORE [0, +INF] t7;
-			t4 BEFORE [0, +INF] t7;
-			
-			t1 BEFORE [0, +INF] t9;
-			t2 BEFORE [0, +INF] t9;
-			t4 BEFORE [0, +INF] t9;
-			
-			t1 BEFORE [0, +INF] t10;
-			t2 BEFORE [0, +INF] t10;
-			t4 BEFORE [0, +INF] t10;
 		}
 
 		// row 5 - 3 Cobot, 2 Worker
@@ -765,7 +607,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
 			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
 			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Cobot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);		// E1
+			t5  Cobot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
 			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
 			t7  Cobot.commands._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
 			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
@@ -825,25 +667,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Goal = J5;
 			?t10Level = 1;
 			
-			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t4 DURING [0, +INF] [0, +INF] r1;
-			t5 DURING [0, +INF] [0, +INF] r1;
-			t7 DURING [0, +INF] [0, +INF] r1;
-			
-			t9 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			t4 BEFORE [0, +INF] t9;
-			t5 BEFORE [0, +INF] t9;
-			t7 BEFORE [0, +INF] t9;
-			
-			t4 BEFORE [0, +INF] t10;
-			t5 BEFORE [0, +INF] t10;
-			t7 BEFORE [0, +INF] t10;
 		}
 		
 		// row 5 - 2 Cobot, 3 Worker
@@ -913,25 +736,6 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V2
 			?t10Goal = J5;
 			?t10Level = 1;
 			
-			// model shared space as mutually exclusive resource
-			r1 BlueArea.shared.Cobot();
-			r2 BlueArea.shared.Worker();
-			
-			t4 DURING [0, +INF] [0, +INF] r1;
-			t5 DURING [0, +INF] [0, +INF] r1;
-			
-			t7 DURING [0, +INF] [0, +INF] r2;
-			t9 DURING [0, +INF] [0, +INF] r2;
-			t10 DURING [0, +INF] [0, +INF] r2;
-			
-			t4 BEFORE [0, +INF] t7;
-			t5 BEFORE [0, +INF] t7;
-			
-			t4 BEFORE [0, +INF] t9;
-			t5 BEFORE [0, +INF] t9;
-			
-			t4 BEFORE [0, +INF] t10;
-			t5 BEFORE [0, +INF] t10;
 		}
 	
 	}

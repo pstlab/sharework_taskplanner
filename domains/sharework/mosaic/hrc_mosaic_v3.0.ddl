@@ -363,20 +363,20 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 	}
 	
-	COMP_TYPE SingletonStateVariable SharableAreaType(Free(), Human(), Robot()) 
+	COMP_TYPE SingletonStateVariable SharableAreaType(Free(), Worker(), Cobot()) 
 	{
 		VALUE Free() [1, +INF]
 		MEETS {
-			Human();
-			Robot();
+			Worker();
+			Cobot();
 		}
 		
-		VALUE Human() [1, +INF]
+		VALUE Worker() [1, +INF]
 		MEETS {
 			Free();
 		}
 		
-		VALUE Robot() [1, +INF]
+		VALUE Cobot() [1, +INF]
 		MEETS {
 			Free();
 		}
@@ -385,8 +385,8 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 	COMPONENT Goal {FLEXIBLE hrc(functional)} : ProcessType;
 	COMPONENT Mosaic {FLEXIBLE tasks(functional)} : MosaicProcessType;
 	COMPONENT Assembly {FLEXIBLE coordination(functional)} : AssemblyProcessType;
-	COMPONENT Human {FLEXIBLE operations(primitive)} : AgentBehaviorType;
-	COMPONENT Robot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
+	COMPONENT Worker {FLEXIBLE operations(primitive)} : AgentBehaviorType;
+	COMPONENT Cobot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
 	COMPONENT BlueBoxArea {FLEXIBLE state(primitive)} : SharableAreaType;
 	
 	SYNCHRONIZE Goal.hrc
@@ -411,8 +411,8 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 //			r3 BEFORE [0, +INF] r5;
 //			r4 BEFORE [0, +INF] r5;
 			
-//			f0 Robot.commands.Idle();
-//			f1 Human.operations.Idle();
+//			f0 Cobot.commands.Idle();
+//			f1 Worker.operations.Idle();
 //			
 //			MET-BY f0;
 //			MET-BY f1; 
@@ -560,7 +560,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellA1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -571,7 +571,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellB1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -582,7 +582,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellC1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -591,11 +591,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 2;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellD1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2	BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2	BlueBoxArea.state.Cobot();
 			
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
@@ -607,11 +607,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellD1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			DURING [0, +INF] [0, +INF] t2;	
@@ -623,7 +623,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellE1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -634,11 +634,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellF1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -649,11 +649,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellF1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -665,11 +665,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellG1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -682,11 +682,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		
 		
-		// human
+		// Worker
 		VALUE DoCellG1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -698,11 +698,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellH1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -713,11 +713,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellH1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -730,7 +730,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellI1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -740,11 +740,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellJ1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -755,11 +755,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellJ1()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -776,7 +776,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellA2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -785,11 +785,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 1;
 		}
 		
-		// robot 
+		// Cobot 
 		VALUE DoCellB2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -800,11 +800,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 1;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellB2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -815,11 +815,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// robot 
+		// Cobot 
 		VALUE DoCellC2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -830,11 +830,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 1;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellC2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -846,11 +846,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellD2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -861,11 +861,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellD2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -878,7 +878,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellE2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -889,11 +889,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellF2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -904,11 +904,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellF2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -919,10 +919,10 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellG2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -932,11 +932,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellH2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -947,11 +947,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellH2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -964,7 +964,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellI2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -974,11 +974,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellJ2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -989,11 +989,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellJ2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1010,7 +1010,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 	
 		VALUE DoCellA3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1021,7 +1021,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellB3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1032,7 +1032,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellC3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1041,11 +1041,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 2;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellD3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1056,11 +1056,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellD3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1073,7 +1073,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellE3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1084,11 +1084,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellF3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1099,11 +1099,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellF3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1114,10 +1114,10 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellG3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1127,11 +1127,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellH3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1142,11 +1142,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellH3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1159,7 +1159,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellI3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1169,11 +1169,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellJ3()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1184,11 +1184,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellJ3()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1202,11 +1202,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		// cells of row 4
 		
-		// robot 
+		// Cobot 
 		VALUE DoCellA4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1217,11 +1217,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 1;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellA4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1233,11 +1233,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot 
+		// Cobot 
 		VALUE DoCellB4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1248,11 +1248,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 1;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellB4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1265,7 +1265,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellC4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1274,11 +1274,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 2;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellD4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1289,11 +1289,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellD4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1306,7 +1306,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellE4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1316,10 +1316,10 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// human
+		// Worker
 		VALUE DoCellF4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1328,11 +1328,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellG4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1343,11 +1343,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellG4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1361,7 +1361,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellH4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1372,7 +1372,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellI4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1382,11 +1382,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellJ4()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1397,11 +1397,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellJ4()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1417,7 +1417,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellA5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1428,7 +1428,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellB5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1439,7 +1439,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellC5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1448,11 +1448,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 2;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellD5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1463,11 +1463,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 2;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellD5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1478,11 +1478,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// robot 
+		// Cobot 
 		VALUE DoCellE5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1493,11 +1493,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human 
+		// Worker 
 		VALUE DoCellE5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1511,7 +1511,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellF5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
@@ -1522,11 +1522,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellG5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1537,11 +1537,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 4;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellG5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1554,7 +1554,7 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		
 		VALUE DoCellH5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			
 			CONTAINS [0, +INF] [0, +INF] t1;	
 			
@@ -1563,11 +1563,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 0;
 		}
 		
-		// robot
+		// Cobot
 		VALUE DoCellI5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1578,11 +1578,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellI5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1594,11 +1594,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 		}
 		
 		
-		// robot
+		// Cobot
 		VALUE DoCellJ5()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Cobot();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			
@@ -1609,11 +1609,11 @@ DOMAIN SHAREWORK_HRC_MOSAIC_v3
 			?risk = 3;
 		}
 		
-		// human
+		// Worker
 		VALUE DoCellJ5()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
+			t2 BlueBoxArea.state.Worker();
 			
 			DURING [0, +INF] [0, +INF] t2; 
 			

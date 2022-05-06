@@ -1,6 +1,11 @@
 package com.github.sharework_taskplanner.taskplanner;
 
+import com.github.sharework_taskplanner.taskplanner.heuristics.search.MinMaxMHS;
+import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.GreedyDepthSearchStrategy;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.WeightedAStarSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.deliberative.FlawSelectionHeuristicsConfiguration;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.deliberative.PlannerSolverConfiguration;
@@ -8,11 +13,11 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.delibera
 import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
 
-@PlannerSolverConfiguration(
-		timeout = 300000
-)
+@PlannerSolverConfiguration
 @FlawSelectionHeuristicsConfiguration
-@SearchStrategyConfiguration
+@SearchStrategyConfiguration(
+		strategy = StandardDeviationMinimizationSearchStrategy.class
+)
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.INFO
 )

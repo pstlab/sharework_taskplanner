@@ -118,7 +118,7 @@ public class MosaicModelGenerator
 			
 			// generate DDL 
 			String ddl = this.generateDDL(collection);
-			// generat PDL
+			// generate PDL
 			String pdl = this.generatePDL();
 		
 			// write DDL 

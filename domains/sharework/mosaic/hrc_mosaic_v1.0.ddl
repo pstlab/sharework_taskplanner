@@ -92,8 +92,8 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 	
 	COMPONENT Goal {FLEXIBLE hrc(functional)} : ProcessType;
 	COMPONENT Mosaic {FLEXIBLE tasks(primitive)} : MosaicProcessType;
-	COMPONENT Human {FLEXIBLE operations(primitive)} : AgentBehaviorType;
-	COMPONENT Robot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
+	COMPONENT Worker {FLEXIBLE operations(primitive)} : AgentBehaviorType;
+	COMPONENT Cobot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
 	
 	SYNCHRONIZE Goal.hrc
 	{
@@ -122,19 +122,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 	
 	SYNCHRONIZE Mosaic.tasks
 	{
-		// row 1 - 3 Robot, 2 Human
+		// row 1 - 3 Cobot, 2 Worker
 		VALUE DoRow1()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Robot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Robot.commands._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);	// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Cobot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Cobot.commands._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);	// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -189,19 +189,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			?t10Level = 3;
 		}
 	
-		// row 1 - 2 Robot, 3 Human
+		// row 1 - 2 Cobot, 3 Worker
 		VALUE DoRow1()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Robot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);	// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);	// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Cobot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);	// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);	// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -258,19 +258,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			
 		}
 		
-		// row 2 - 4 Robot, 2 Human
+		// row 2 - 4 Cobot, 2 Worker
 		VALUE DoRow2()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Robot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Cobot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -328,19 +328,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			
 		}
 	
-		// row 2 - 3 Robot, 3 Human
+		// row 2 - 3 Cobot, 3 Worker
 		VALUE DoRow2()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Human.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -396,19 +396,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			?t10Level = 3;
 		}
 		
-		// row 2 - 2 Robot, 4 Human
+		// row 2 - 2 Cobot, 4 Worker
 		VALUE DoRow2()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Human.operations._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Human.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Worker.operations._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -464,19 +464,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			?t10Level = 3;
 		}
 		
-		// row 3 - 2 Robot, 2 Human
+		// row 3 - 2 Cobot, 2 Worker
 		VALUE DoRow3()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Robot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Cobot.commands._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -532,19 +532,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			?t10Level = 3;
 		}
 		
-		// row 4 - 3 Robot, 4 Human
+		// row 4 - 3 Cobot, 4 Worker
 		VALUE DoRow4()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Human.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Human.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Worker.operations._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -600,19 +600,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			?t10Level = 3;
 		}
 
-		// row 5 - 3 Robot, 2 Human
+		// row 5 - 3 Cobot, 2 Worker
 		VALUE DoRow5()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Robot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
-			t6  Human.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Robot.commands._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Cobot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);	// E1
+			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Cobot.commands._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;
@@ -669,19 +669,19 @@ DOMAIN SHAREWORK_HRC_MOSAIC_V1
 			
 		}
 		
-		// row 5 - 2 Robot, 3 Human
+		// row 5 - 2 Cobot, 3 Worker
 		VALUE DoRow5()
 		{
-			t1  Robot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
-			t2  Robot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
-			t3  Robot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
-			t4  Robot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
-			t5  Robot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);		// E1
-			t6  Human.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
-			t7  Human.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
-			t8  Human.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
-			t9  Human.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
-			t10  Human.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
+			t1  Cobot.commands._PickPlace(?t1Start, ?t1Goal, ?t1Level);		// A1
+			t2  Cobot.commands._PickPlace(?t2Start, ?t2Goal, ?t2Level);		// B1
+			t3  Cobot.commands._PickPlace(?t3Start, ?t3Goal, ?t3Level);		// C1
+			t4  Cobot.commands._PickPlace(?t4Start, ?t4Goal, ?t4Level);		// D1
+			t5  Cobot.commands._PickPlace(?t5Start, ?t5Goal, ?t5Level);		// E1
+			t6  Worker.operations._PickPlace(?t6Start, ?t6Goal, ?t6Level);		// F1
+			t7  Worker.operations._PickPlace(?t7Start, ?t7Goal, ?t7Level);		// G1
+			t8  Worker.operations._PickPlace(?t8Start, ?t8Goal, ?t8Level);		// H1
+			t9  Worker.operations._PickPlace(?t9Start, ?t9Goal, ?t9Level);	// I1
+			t10  Worker.operations._PickPlace(?t10Start, ?t10Goal, ?t10Level);	// J1
 			
 			CONTAINS [0, +INF] [0, +INF] t1;
 			CONTAINS [0, +INF] [0, +INF] t2;

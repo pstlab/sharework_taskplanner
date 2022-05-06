@@ -40,9 +40,9 @@ public class MinMaxMHS extends ShareworkSearchStrategy
 		double r2 = pr2.getPlanSynergy() + pr2.getHeuristicSynergy();
 		
 		// get robot component 
-		DomainComponent robot = this.pdb.getComponentByName("Robot");
+		DomainComponent robot = this.pdb.getComponentByName("Cobot");
 		// get human component
-		DomainComponent human = this.pdb.getComponentByName("Human");
+		DomainComponent human = this.pdb.getComponentByName("Worker");
 				
 				
 		// check max makespan

@@ -41,8 +41,8 @@ public abstract class ShareworkSearchStrategy extends SearchStrategy {
         // set static field of plan synergy
         PlanSynergy.SYN_MAX = SYN_MAX;
         PlanSynergy.pgraph = this.pgraph;
-        PlanSynergy.robot = this.pdb.getComponentByName("Robot");
-        PlanSynergy.human = this.pdb.getComponentByName("Human");
+        PlanSynergy.robot = this.pdb.getComponentByName("Cobot");
+        PlanSynergy.human = this.pdb.getComponentByName("Worker");
     }
 
     /**
@@ -127,9 +127,9 @@ public abstract class ShareworkSearchStrategy extends SearchStrategy {
 
 
             // get robot component
-            DomainComponent robot = this.pdb.getComponentByName("Robot");
+            DomainComponent robot = this.pdb.getComponentByName("Cobot");
             // get human component
-            DomainComponent human = this.pdb.getComponentByName("Human");
+            DomainComponent human = this.pdb.getComponentByName("Worker");
 
             // check robot  and human makespan
             Double[] rmk = new Double[] {0.0, 0.0};

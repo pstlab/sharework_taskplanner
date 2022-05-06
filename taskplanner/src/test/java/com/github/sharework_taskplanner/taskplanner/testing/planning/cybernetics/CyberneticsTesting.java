@@ -1,11 +1,8 @@
 package com.github.sharework_taskplanner.taskplanner.testing.planning.cybernetics;
 
-import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
-import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
-import it.cnr.istc.pst.platinum.ai.deliberative.solver.PseudoControllabilityAwareSolver;
-import it.cnr.istc.pst.platinum.ai.deliberative.strategy.DepthFirstSearchStrategy;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.domain.PlanDataBaseBuilder;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.PlanDataBase;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
@@ -17,22 +14,20 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.lang.ex.ProblemInitiali
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.lang.plan.SolutionPlan;
 import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
-
 /**
  *
  */
-@PlannerSolverConfiguration(
-		solver = PseudoControllabilityAwareSolver.class,
-		timeout = 300000
-)
-@FlawSelectionHeuristicsConfiguration(
-		heuristics = ShareworkFlawSelectionHeuristics.class
-)
+@PlannerSolverConfiguration
+@FlawSelectionHeuristicsConfiguration
 @SearchStrategyConfiguration(
-		strategy = ParetoMHS.class
+		strategy = StandardDeviationMinimizationSearchStrategy.class
+		//strategy = GreedyDepthSearchStrategy.class
+		//strategy = WeightedAStarSearchStrategy.class
+		//strategy = ParetoMHS.class
+		//strategy = MinMaxMHS.class
 )
 @FrameworkLoggerConfiguration(		
-		level = FrameworkLoggingLevel.OFF
+		level = FrameworkLoggingLevel.INFO
 )
 public class CyberneticsTesting extends Planner {
 
@@ -50,8 +45,8 @@ public class CyberneticsTesting extends Planner {
 			
 			// build the plan database
 			PlanDataBase pdb = PlanDataBaseBuilder.createAndSet(
-					"domains/cybernetics/cybernetics_4x4.ddl",
-					"domains/cybernetics/cybernetics.pdl");
+					"domains/cybernetics/hrc_mosaic_v1.0.ddl",
+					"domains/cybernetics/hrc_mosaic.pdl");
 			
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
@@ -66,6 +61,8 @@ public class CyberneticsTesting extends Planner {
 					+ "Solution plan:\n"
 					+ "" + plan + "\n"
 					+ "----------------------------------\n");
+
+			planner.display();
 
 		} catch (NoSolutionFoundException ex) {
 			// no solution found
