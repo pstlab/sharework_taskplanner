@@ -170,7 +170,7 @@ DOMAIN CYBERNETICS_4x4
 			_PickPlace(?start, ?goal, ?risk);
 		}
 
-		VALUE _PickPlace(?start, ?goal, ?risk) [1, 120]
+		VALUE _PickPlace(?start, ?goal, ?risk) [3, 7]
 		MEETS {
 			Idle();
 		}
@@ -200,7 +200,7 @@ DOMAIN CYBERNETICS_4x4
 	COMPONENT Assembly {FLEXIBLE coordination(functional)} : AssemblyProcessType;
 	COMPONENT Human {FLEXIBLE operations(primitive)} : AgentBehaviorType;
 	COMPONENT Robot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
-	COMPONENT BlueBoxArea {FLEXIBLE state(primitive)} : SharableAreaType;
+	//COMPONENT BlueBoxArea {FLEXIBLE state(primitive)} : SharableAreaType;
 
 	SYNCHRONIZE Goal.hrc
 	{
@@ -316,11 +316,11 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD1()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2	BlueBoxArea.state.Robot();
+			//t2	BlueBoxArea.state.Robot();
 
 
 			CONTAINS [0, +INF] [0, +INF] t1;
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 
 			?start = box_blue;
@@ -332,10 +332,10 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD1()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
 			CONTAINS [0, +INF] [0, +INF] t1;
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			?start = box_blue;
 			?goal = D1;
@@ -359,9 +359,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellB2()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -374,9 +374,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellB2()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -389,9 +389,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellC2()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -404,9 +404,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellC2()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -420,9 +420,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD2()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -435,9 +435,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD2()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -486,9 +486,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD3()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -501,9 +501,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD3()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -518,9 +518,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellA4()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -533,9 +533,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellA4()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -549,9 +549,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellB4()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -564,9 +564,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellB4()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -590,9 +590,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD4()
 		{
 			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Robot();
+			//t2 BlueBoxArea.state.Robot();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -605,9 +605,9 @@ DOMAIN CYBERNETICS_4x4
 		VALUE DoCellD4()
 		{
 			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
-			t2 BlueBoxArea.state.Human();
+			//t2 BlueBoxArea.state.Human();
 
-			DURING [0, +INF] [0, +INF] t2;
+			//DURING [0, +INF] [0, +INF] t2;
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 

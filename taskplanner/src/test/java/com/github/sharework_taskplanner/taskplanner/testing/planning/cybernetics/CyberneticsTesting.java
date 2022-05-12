@@ -2,6 +2,7 @@ package com.github.sharework_taskplanner.taskplanner.testing.planning.cybernetic
 
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.PlannerBuilder;
+import it.cnr.istc.pst.platinum.ai.deliberative.strategy.DepthFirstSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.deliberative.strategy.GreedyDepthSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.domain.PlanDataBaseBuilder;
@@ -21,14 +22,15 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 @PlannerSolverConfiguration
 @FlawSelectionHeuristicsConfiguration
 @SearchStrategyConfiguration(
-		strategy = StandardDeviationMinimizationSearchStrategy.class
+		//strategy = StandardDeviationMinimizationSearchStrategy.class
 		//strategy = GreedyDepthSearchStrategy.class
 		//strategy = WeightedAStarSearchStrategy.class
 		//strategy = ParetoMHS.class
 		//strategy = MinMaxMHS.class
+		strategy = DepthFirstSearchStrategy.class
 )
 @FrameworkLoggerConfiguration(		
-		level = FrameworkLoggingLevel.INFO
+		level = FrameworkLoggingLevel.OFF
 )
 public class CyberneticsTesting extends Planner {
 
@@ -48,7 +50,8 @@ public class CyberneticsTesting extends Planner {
 			PlanDataBase pdb = PlanDataBaseBuilder.createAndSet(
 					"domains/cybernetics/hrc_mosaic_v1.0.ddl",
 					"domains/cybernetics/hrc_mosaic.pdl");
-			
+
+
 			// set a planning instance of the plan database
 			Planner planner = PlannerBuilder.createAndSet(
 					CyberneticsTesting.class,
@@ -62,8 +65,6 @@ public class CyberneticsTesting extends Planner {
 					+ "Solution plan:\n"
 					+ "" + plan + "\n"
 					+ "----------------------------------\n");
-
-			planner.display();
 
 		} catch (NoSolutionFoundException ex) {
 			// no solution found
