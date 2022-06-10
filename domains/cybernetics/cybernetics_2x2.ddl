@@ -91,7 +91,7 @@ DOMAIN CYBERNETICS_2x2
 			_PickPlace(?start, ?goal, ?risk);
 		}
 
-		VALUE _PickPlace(?start, ?goal, ?risk) [10, 10]
+		VALUE _PickPlace(?start, ?goal, ?risk) [18, 23]
 		MEETS {
 			Idle();
 		}
@@ -119,8 +119,8 @@ DOMAIN CYBERNETICS_2x2
 	COMPONENT Goal {FLEXIBLE hrc(functional)} : ProcessType;
 	COMPONENT Mosaic {FLEXIBLE tasks(functional)} : MosaicProcessType;
 	COMPONENT Assembly {FLEXIBLE coordination(functional)} : AssemblyProcessType;
-	COMPONENT Human {FLEXIBLE operations(primitive)} : AgentBehaviorType;
-	COMPONENT Robot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
+	COMPONENT Worker {FLEXIBLE operations(primitive)} : AgentBehaviorType;
+	COMPONENT Cobot {FLEXIBLE commands(primitive)} : AgentBehaviorType;
 	//COMPONENT BlueBoxArea {FLEXIBLE state(primitive)} : SharableAreaType;
 
 	SYNCHRONIZE Goal.hrc
@@ -164,7 +164,7 @@ DOMAIN CYBERNETICS_2x2
 
 		VALUE DoCellA1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -175,7 +175,7 @@ DOMAIN CYBERNETICS_2x2
 
 		VALUE DoCellB1()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -189,7 +189,7 @@ DOMAIN CYBERNETICS_2x2
 
 		VALUE DoCellA2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 
 			CONTAINS [0, +INF] [0, +INF] t1;
 
@@ -201,7 +201,7 @@ DOMAIN CYBERNETICS_2x2
 		// robot
 		VALUE DoCellB2()
 		{
-			t1  Robot.commands._PickPlace(?start, ?goal, ?risk);
+			t1  Cobot.commands._PickPlace(?start, ?goal, ?risk);
 			//t2 BlueBoxArea.state.Robot();
 
 			//DURING [0, +INF] [0, +INF] t2;
@@ -216,7 +216,7 @@ DOMAIN CYBERNETICS_2x2
 		// human
 		VALUE DoCellB2()
 		{
-			t1  Human.operations._PickPlace(?start, ?goal, ?risk);
+			t1  Worker.operations._PickPlace(?start, ?goal, ?risk);
 			//t2 BlueBoxArea.state.Human();
 
 			//DURING [0, +INF] [0, +INF] t2;
