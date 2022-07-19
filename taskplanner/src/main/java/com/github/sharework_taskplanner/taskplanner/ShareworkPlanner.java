@@ -16,8 +16,8 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
 @SearchStrategyConfiguration(
-		//strategy = ParetoMHS.class
-		strategy = StandardDeviationMinimizationSearchStrategy.class
+		strategy = ParetoMHS.class
+		//strategy = StandardDeviationMinimizationSearchStrategy.class
 )
 @FrameworkLoggerConfiguration(		
 		level = FrameworkLoggingLevel.INFO
