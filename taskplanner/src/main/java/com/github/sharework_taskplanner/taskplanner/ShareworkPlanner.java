@@ -1,6 +1,7 @@
 package com.github.sharework_taskplanner.taskplanner;
 
 import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFlawSelectionHeuristics;
+import com.github.sharework_taskplanner.taskplanner.heuristics.search.HRBalancing;
 import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
 import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
@@ -16,7 +17,8 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
 @SearchStrategyConfiguration(
-		strategy = ParetoMHS.class
+		strategy = HRBalancing.class
+		//strategy = ParetoMHS.class
 		//strategy = StandardDeviationMinimizationSearchStrategy.class
 )
 @FrameworkLoggerConfiguration(		

@@ -155,8 +155,8 @@ public abstract class ShareworkSearchStrategy extends SearchStrategy {
      *
      */
     @Override
-    public void enqueue(SearchSpaceNode node)
-    {
+    public void enqueue(SearchSpaceNode node) {
+
         // compute heuristic cost
         Map<DomainComponent, Double[]> hc = this.computeHeuristicCost(node);
         // set planning distance as heuristics
