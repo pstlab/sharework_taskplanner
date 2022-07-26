@@ -12,7 +12,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
 
 @PlannerSolverConfiguration(
-		timeout= 10000
+		timeout= 60000
 )
 @FlawSelectionHeuristicsConfiguration(
 		heuristics = ShareworkFlawSelectionHeuristics.class
