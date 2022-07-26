@@ -12,7 +12,9 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.delibera
 import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
 
-@PlannerSolverConfiguration
+@PlannerSolverConfiguration(
+		timeout= 10000
+)
 @FlawSelectionHeuristicsConfiguration(
 		heuristics = ShareworkFlawSelectionHeuristics.class
 )
