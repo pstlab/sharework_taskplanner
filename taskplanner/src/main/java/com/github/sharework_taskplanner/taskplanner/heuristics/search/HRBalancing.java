@@ -85,7 +85,8 @@ public class HRBalancing extends ShareworkSearchStrategy
 		// greedy search supported by  HR balance
 		return b1 < b2 ? -1 : b1 > b2 ? 1 :
 				o1.getPlanHeuristicCost()[0] < o2.getPlanHeuristicCost()[0] ? -1 : o1.getPlanHeuristicCost()[0] > o2.getPlanHeuristicCost()[0] ? 1 :
-						0;
+						o1.getDepth() > o2.getDepth() ? -1 : o1.getDepth() < o2.getDepth() ? 1 :
+							0;
 	}
 }
 

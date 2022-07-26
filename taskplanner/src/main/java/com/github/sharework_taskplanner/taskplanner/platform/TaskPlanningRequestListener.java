@@ -87,6 +87,41 @@ public class TaskPlanningRequestListener extends RosJavaGoalListener<task_planne
                 new long[] {1, 1000},
                 new long[] {1, 1000}));
 
+        // check additional facts
+        for (int i = 0; i < msg.getFactComponents().size(); i++) {
+
+            // get component and predicate
+            String fComp = msg.getFactComponents().get(i);
+            String fPred = msg.getFactPredicates().get(i);
+
+            log.info("Set additional fact \"" + fComp+ "." + fPred + "\"");
+
+            // check component
+            if ((fComp.equalsIgnoreCase("p2") || fComp.equalsIgnoreCase("p1"))
+                    && fPred.equalsIgnoreCase("busy")) {
+
+                // add fact to task description
+                task.addFactDescription(new TokenDescription(
+                        fComp,
+                        fPred,
+                        new String[]{},
+                        new long[]{0, 0},
+                        new long[]{1000, 1000},
+                        new long[]{1000, 1000}));
+
+
+            } else {
+                // add fact to task description
+                task.addFactDescription(new TokenDescription(
+                        fComp,
+                        fPred,
+                        new String[]{},
+                        new long[]{0, 0},
+                        new long[]{1, 1000},
+                        new long[]{1, 1000}));
+            }
+        }
+
 
         // check GOIZPER goal
         if (goal.contains("screw-on-pose")) {
