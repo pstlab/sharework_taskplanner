@@ -4,7 +4,6 @@ import com.github.sharework_taskplanner.taskplanner.heuristics.flaws.ShareworkFl
 import com.github.sharework_taskplanner.taskplanner.heuristics.search.HRBalancing;
 import com.github.sharework_taskplanner.taskplanner.heuristics.search.ParetoMHS;
 import it.cnr.istc.pst.platinum.ai.deliberative.Planner;
-import it.cnr.istc.pst.platinum.ai.deliberative.strategy.StandardDeviationMinimizationSearchStrategy;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.FrameworkLoggerConfiguration;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.deliberative.FlawSelectionHeuristicsConfiguration;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.cfg.deliberative.PlannerSolverConfiguration;
@@ -13,7 +12,7 @@ import it.cnr.istc.pst.platinum.ai.framework.utils.log.FrameworkLoggingLevel;
 
 
 @PlannerSolverConfiguration(
-		timeout= 10000
+		timeout= 60000
 )
 @FlawSelectionHeuristicsConfiguration(
 		heuristics = ShareworkFlawSelectionHeuristics.class
