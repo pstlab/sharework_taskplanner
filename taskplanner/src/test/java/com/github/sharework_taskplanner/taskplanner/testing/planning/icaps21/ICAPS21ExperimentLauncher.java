@@ -22,31 +22,32 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.lang.plan.SolutionPlan;
 public class ICAPS21ExperimentLauncher 
 {
 	private static final String OUTPUT_FOLDER = "domains/icaps21";
-	private static int HORIZON = 7000;
+	private static int HORIZON = 100000;
 
 	private static int[] ROWS = new int[] {
-			2, //3, 4, 5, 6, 7, 8, 9, 10
+			2, 3, 4, 5, 6, 7, 8, 9, 10
 	};
 	
 	private static int[] COLUMNS = new int[] {
-			2, //3, 4, 5, 6, 7, 8, 9, 10
+			2, 3, 4, 5, 6, 7, 8, 9, 10
 	};
-	
+
+	// percentage of distribution of tasks between Blue, White and Orange tasks
 	private static double[][] BWO = new double [][] {
-			{.8, .1, .1},
-			
-//			{.6, .2, .2}, 
-//			{.4, .3, .3},
-//			{.2, .4, .4}
+			{.8, .1, .1},		// almost all shared tasks to be considered
+			//{.6, .2, .2},
+			//{.4, .3, .3},
+			//{.2, .4, .4}
 	};
 	
 	private static Class<?>[] PLANNERS = new Class<?>[] {
 		MHSPlanner.class,
-//		GHSPlanner.class,
-//		AHSPlanner.class,
-//		MBSPlanner.class,
-//		DBSPlanner.class
-		
+		RHSPlanner.class,
+		THSPlanner.class,
+		GHSPlanner.class,
+		AHSPlanner.class,
+		MBSPlanner.class,
+		DBSPlanner.class
 	};
 	
 	

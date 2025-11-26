@@ -17,16 +17,19 @@ import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.Po
 
 
 /**
+ * A* Search
+ *
+ * Classic A* heuristic search based on the planning cost
  *
  */
-public class Icaps21AHS extends SearchStrategy
+public class AHS extends SearchStrategy
 {
 	private MongoClient heuristicDataset;
 	
 	/**
 	 * 
 	 */
-	protected Icaps21AHS() {
+	protected AHS() {
 		super("AStarHeuristicSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();
@@ -53,8 +56,6 @@ public class Icaps21AHS extends SearchStrategy
 		// check db collection
 		if (this.collection != null) 
 		{
-			
-			
 			// create solving statistic record
 			Document doc = new Document("step", node.getId());
 			doc.append("fringe-size", this.fringe.size());

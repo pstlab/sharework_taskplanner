@@ -1,36 +1,33 @@
 package com.github.sharework_taskplanner.taskplanner.heuristics.search.icaps21;
 
-import java.util.Map;
-
-import org.bson.Document;
-
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-
 import it.cnr.istc.pst.platinum.ai.deliberative.solver.SearchSpaceNode;
 import it.cnr.istc.pst.platinum.ai.deliberative.strategy.SearchStrategy;
 import it.cnr.istc.pst.platinum.ai.deliberative.strategy.ex.EmptyFringeException;
 import it.cnr.istc.pst.platinum.ai.framework.domain.component.DomainComponent;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.PostConstruct;
+import org.bson.Document;
 
+import java.util.Map;
 
 /**
- * 
- * @author alessandroumbrico
+ * Time-based Heuristic Searhc
+ *
+ * Single-objective heuristic function minimizing the makespan of the plan
  *
  */
-public class Icaps21MHS extends SearchStrategy
+public class THS extends SearchStrategy
 {
-	private static final double SYN_MAX = 50.0;
 	private MongoClient heuristicDataset;
 
 	/**
-	 * 
+	 *
 	 */
-	protected Icaps21MHS() {
-		super("MultiobjectiveHeuristicSearchStrategy");
+	protected THS() {
+		super("GreedyHeursiticSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();
 	}
@@ -42,8 +39,6 @@ public class Icaps21MHS extends SearchStrategy
 	protected void init() {
 		super.init();
 		
-		// set static field of plan synergy
-		PlanRisk.SYN_MAX = SYN_MAX;
 		PlanRisk.pgraph = this.pgraph;
 		PlanRisk.robot = this.pdb.getComponentByName("Robot");
 		PlanRisk.human = this.pdb.getComponentByName("Human");
@@ -121,7 +116,7 @@ public class Icaps21MHS extends SearchStrategy
 		SearchSpaceNode node = super.dequeue();
 		// get risk
 		PlanRisk risk = (PlanRisk) node.getDomainSpecificMetric();
-		
+
 		// set debug information
 		debug("Current plan { "
 				+ "\"plan-makespan\": [" + node.getPlanMakespan()[0]  + ", " + node.getPlanMakespan()[1] + "], "
@@ -175,33 +170,15 @@ public class Icaps21MHS extends SearchStrategy
 	 * 
 	 */
 	@Override
-	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) 
-	{
-		// get costs as the sum of actual cost and heuristic estimation (a* like)
-		double c1 = o1.getPlanCost() + o1.getPlanHeuristicCost()[0];
-		double c2 = o2.getPlanCost() + o2.getPlanHeuristicCost()[0];
-		
+	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) {
+
 		// get makespan as the sum of actual makespan and heuristic estimation
 		double m1 = o1.getPlanMakespan()[0] + o1.getPlanHeuristicMakespan()[0];
 		double m2 = o2.getPlanMakespan()[0] + o2.getPlanHeuristicMakespan()[0];
-		
-		// get risk information
-		PlanRisk pr1 = (PlanRisk) o1.getDomainSpecificMetric();
-		PlanRisk pr2 = (PlanRisk) o2.getDomainSpecificMetric();
-		
-		// get risk as the sum of actual risk and heuristic esitimation
-		double r1 = pr1.getPlanRisk() + pr1.getHeuristicRisk();
-		double r2 = pr2.getPlanRisk() + pr2.getHeuristicRisk();
-		
-		// chekc dominancy between partial plans
-		return m1 < m2 && r1 < r2 ? -1 : m1 > m2 && r1 > r2 ? 1 :
-			// check heuristic distance to solutions
-			o1.getPlanHeuristicCost()[0] < o2.getPlanHeuristicCost()[0] ? -1 : o1.getPlanHeuristicCost()[0] > o2.getPlanHeuristicCost()[0] ? 1 :
-				// check heursitics makespan
-				m1 < m2 ? -1 : m1 > m2 ? 1 :
-					// check heuristic distance to solutions
-					c1 < c2 ? -1 : c1 > c2 ? 1 : 0;
-				
+
+		// check makespan only
+		return m1 < m2 ? -1 : m1 > m2 ? 1 :
+				o1.getPlanHeuristicCost()[0] < o2.getPlanHeuristicCost()[0] ? -1 : o1.getPlanHeuristicCost()[0] > o2.getPlanHeuristicCost()[0] ? 1 : 0;
 	}
 	
 	/**

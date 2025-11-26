@@ -9,7 +9,11 @@ import java.util.List;
 
 
 /**
+ * Workload Balancing Search
  *
+ * Search strategy trying to minimize the different workload between the human and the robot
+ *
+ * The workload is estimated in terms of number of assigned tasks
  */
 public class HRBalancing extends ShareworkSearchStrategy
 {

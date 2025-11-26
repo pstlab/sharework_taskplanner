@@ -16,19 +16,20 @@ import it.cnr.istc.pst.platinum.ai.framework.domain.component.DomainComponent;
 import it.cnr.istc.pst.platinum.ai.framework.microkernel.annotation.lifecycle.PostConstruct;
 
 /**
- * 
- * @author alessandroumbrico
+ * Multi-objective Blind Search
+ *
+ * Multi-objective search trading-off the makespan, the risk and the cost of a plan but without the heuristic evaluation of future refinements
  *
  */
-public class Icaps21GHS extends SearchStrategy
+public class MBS extends SearchStrategy
 {
 	private MongoClient heuristicDataset;
 	
 	/**
 	 * 
 	 */
-	protected Icaps21GHS() {
-		super("GreedyHeursiticSearchStrategy");
+	protected MBS() {
+		super("MultiobjectiveBlindSearchStrategy");
 		// setup connection with (local) heuristic DB
 		this.heuristicDataset = MongoClients.create();
 	}
@@ -117,7 +118,7 @@ public class Icaps21GHS extends SearchStrategy
 		SearchSpaceNode node = super.dequeue();
 		// get risk
 		PlanRisk risk = (PlanRisk) node.getDomainSpecificMetric();
-
+		
 		// set debug information
 		debug("Current plan { "
 				+ "\"plan-makespan\": [" + node.getPlanMakespan()[0]  + ", " + node.getPlanMakespan()[1] + "], "
@@ -171,9 +172,59 @@ public class Icaps21GHS extends SearchStrategy
 	 * 
 	 */
 	@Override
-	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) {
-		// check heuristic cost only 
-		return o1.getPlanHeuristicCost()[0] < o2.getPlanHeuristicCost()[0] ? -1 : o1.getPlanHeuristicCost()[0] > o2.getPlanHeuristicCost()[0] ? 1 : 0; 
+	public int compare(SearchSpaceNode o1, SearchSpaceNode o2) 
+	{
+		// get costs as the sum of actual cost and heuristic estimation (a* like)
+		double c1 = o1.getPlanCost();
+		double c2 = o2.getPlanCost();
+		
+		// get makespan as the sum of actual makespan and heuristic estimation
+		double m1 = o1.getPlanMakespan()[0];
+		double m2 = o2.getPlanMakespan()[0];
+		
+		// get risk information
+		PlanRisk pr1 = (PlanRisk) o1.getDomainSpecificMetric();
+		PlanRisk pr2 = (PlanRisk) o2.getDomainSpecificMetric();
+		
+		// get risk as the sum of actual risk and heuristic esitimation
+		double r1 = pr1.getPlanRisk();
+		double r2 = pr2.getPlanRisk();
+
+
+		// take the differences between metrics - the objective is to minimize all the metrics
+		double[] mDiffs = new double[] {
+				c1 - c2,					// negative values imply a preference or o1, positive values for o2
+				m1 - m2,
+				r1 - r2
+		};
+
+		// evaluate the first condition to determine a preference between the two nodes
+		boolean o1Pref = true;	// hypothesis - h1
+		// check hypothesis h1
+		for (double d : mDiffs) {
+			if (d > 0) {
+				o1Pref = false;	// o1 cannot represent a preference
+				break;
+			}
+		}
+
+		boolean o2Pref = true;	// hypothesis - h2
+		// check hypothesis h2
+		for (double d : mDiffs) {
+			if (d < 0) {
+				o2Pref = false;	// o2 cannot represent a preference
+				break;
+			}
+		}
+
+		// check dominance by looking at the booleans - if both booleans are true or false the plans are within the pareto set (no dominance)
+		return o1Pref && !o2Pref ? -1 : !o1Pref && o2Pref ? 1 :
+				// no dominance relationship can be established
+				o1.getDepth() < o2.getDepth() ? -1 : o1.getDepth() > o2.getDepth() ? 1 :	// check depth
+					r1 < r2 ? -1 : r1 > r2 ? 1 :	// check risk first
+							m1 < m2 ? -1 : m1 > m2 ? 1 :	// check makespan
+									c1 < c2 ? -1 : c1 > c2 ? 1 :	// check cost
+										0;
 	}
 	
 	/**
@@ -185,7 +236,7 @@ public class Icaps21GHS extends SearchStrategy
 		// get data-base
 		MongoDatabase db = this.heuristicDataset.getDatabase("roxanne_icaps21");
 		// select data-set
-		MongoCollection<Document> collection = db.getCollection("hrc_risk_dynamics");
+		MongoCollection<Document> collection = db.getCollection("hrc_task_dynamic_risks");
 		// return collection
 		return collection;
 	}

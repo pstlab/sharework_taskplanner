@@ -1,6 +1,6 @@
 DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0  {
 
-	TEMPORAL_MODULE temporal_module = [0, 7000], 100;
+	TEMPORAL_MODULE temporal_module = [0, 100000], 100;
 
 	COMP_TYPE SingletonStateVariable GoalType ( DoMosaic(), Idle() ) { 
 
@@ -70,25 +70,25 @@ DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0  {
 
 	COMP_TYPE SingletonStateVariable HumanAgentType ( _pickplace-R1C1(),  _pickplace-R1C2(),  _pickplace-R2C1(),  _pickplace-R2C2(),  Idle() ) {
 
-		VALUE _pickplace-R1C1() [24, 34]
+		VALUE _pickplace-R1C1() [12, 22]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R1C2() [1, 10]
+		VALUE _pickplace-R1C2() [1, 5]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R2C1() [31, 41]
+		VALUE _pickplace-R2C1() [22, 32]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R2C2() [18, 28]
+		VALUE _pickplace-R2C2() [8, 18]
 		MEETS {
 			Idle();
 
@@ -107,25 +107,25 @@ DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0  {
 
 	COMP_TYPE SingletonStateVariable RobotAgentType ( _pickplace-R1C1(),  _pickplace-R1C2(),  _pickplace-R2C1(),  _pickplace-R2C2(),  Idle() ) {
 
-		VALUE _pickplace-R1C1() [6, 16]
+		VALUE _pickplace-R1C1() [1, 10]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R1C2() [15, 25]
+		VALUE _pickplace-R1C2() [8, 18]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R2C1() [5, 15]
+		VALUE _pickplace-R2C1() [4, 14]
 		MEETS {
 			Idle();
 
 		}
 
-		VALUE _pickplace-R2C2() [12, 22]
+		VALUE _pickplace-R2C2() [3, 13]
 		MEETS {
 			Idle();
 
@@ -188,6 +188,20 @@ DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0  {
 
 	SYNCHRONIZE Assembly.coordination {
 
+		VALUE DoR2C2() {
+
+			d0 Robot.task._pickplace-R2C2();
+			CONTAINS [0, +INF] [0, +INF] d0;
+
+		}
+
+		VALUE DoR2C2() {
+
+			d0 Human.operation._pickplace-R2C2();
+			CONTAINS [0, +INF] [0, +INF] d0;
+
+		}
+
 		VALUE DoR1C1() {
 
 			d0 Robot.task._pickplace-R1C1();
@@ -226,20 +240,6 @@ DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0  {
 		VALUE DoR2C1() {
 
 			d0 Human.operation._pickplace-R2C1();
-			CONTAINS [0, +INF] [0, +INF] d0;
-
-		}
-
-		VALUE DoR2C2() {
-
-			d0 Robot.task._pickplace-R2C2();
-			CONTAINS [0, +INF] [0, +INF] d0;
-
-		}
-
-		VALUE DoR2C2() {
-
-			d0 Human.operation._pickplace-R2C2();
 			CONTAINS [0, +INF] [0, +INF] d0;
 
 		}

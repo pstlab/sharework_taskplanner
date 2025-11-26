@@ -1,6 +1,6 @@
 PROBLEM ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0_PROB (DOMAIN ICAPS21_HRC_MOSAIC_R2_C2_B4W0O0) {
 
-	g0 <goal> Goal.hrc.DoMosaic() AT [0, 7000] [0, 7000] [0, 7000];
+	g0 <goal> Goal.hrc.DoMosaic() AT [0, 100000] [0, 100000] [0, 100000];
 
 }
 
